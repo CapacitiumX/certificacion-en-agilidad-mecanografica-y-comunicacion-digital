@@ -79,12 +79,16 @@
       margin-bottom: 0.8rem;
     }
 
-    .app-logo-img {
-      width: 80px;
-      height: 80px;
+    .logo-svg-box {
+      width: 75px;
+      height: 75px;
       border-radius: 14px;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+      background: #0f172a;
+      border: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .form-header h2 {
@@ -220,7 +224,6 @@
       border-color: var(--voice-accent);
     }
 
-    /* Barra de Métricas */
     .stats-bar {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -444,7 +447,7 @@
       100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
     }
 
-    /* PANTALLA 2: MODAL DE RESULTADOS Y PAGO DE $20 */
+    /* PANTALLA 2: MODAL DE RESULTADOS Y PAGO */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -508,7 +511,6 @@
       text-transform: uppercase;
     }
 
-    /* Tarjeta de Pago Cuota de Recuperación $20 */
     .payment-box {
       background: #0f172a;
       border: 1px solid var(--gold-dark);
@@ -551,10 +553,6 @@
       font-size: 0.85rem;
       color: var(--text-main);
       line-height: 1.5;
-    }
-
-    .payment-details strong {
-      color: var(--accent);
     }
 
     .card-number-highlight {
@@ -627,7 +625,6 @@
       z-index: 2;
     }
 
-    /* Marca de Agua de Previsualización para el Alumno */
     .watermark-overlay {
       position: absolute;
       top: 50%;
@@ -660,13 +657,6 @@
 
     .cert-logo-container {
       margin-bottom: 0.5rem;
-    }
-
-    .cert-logo-img {
-      width: 75px;
-      height: 75px;
-      border-radius: 12px;
-      object-fit: cover;
     }
 
     .cert-subhead {
@@ -755,14 +745,11 @@
       position: relative;
     }
 
-    .cert-signature-img {
-      width: 70px;
-      height: 70px;
-      margin-bottom: -5px;
+    .signature-svg-box {
+      width: 170px;
+      height: 55px;
+      margin: 0 auto -5px auto;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
-      object-fit: contain;
     }
 
     .cert-sign-line {
@@ -837,7 +824,6 @@
       cursor: pointer;
     }
 
-    /* Herramienta de Administrador */
     .admin-unlock-btn {
       background: transparent;
       border: 1px solid #334155;
@@ -941,8 +927,15 @@
     <div class="form-card">
       <div class="form-header">
         <div class="app-logo-badge">
-          <!-- Logo Oficial CapacitiumX -->
-          <img src="data:image/jpeg;base64,TU_BASE64_LOGO" class="app-logo-img" alt="CapacitiumX">
+          <!-- Logotipo Oficial CapacitiumX Vectorial -->
+          <div class="logo-svg-box">
+            <svg width="55" height="55" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" rx="20" fill="#0f172a"/>
+              <path d="M25 50C25 36.1929 36.1929 25 50 25C58.5 25 66 29.5 70.5 36.5" stroke="#38bdf8" stroke-width="8" stroke-linecap="round"/>
+              <path d="M75 50C75 63.8071 63.8071 75 50 75C41.5 75 34 70.5 29.5 63.5" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+              <path d="M38 38L62 62M62 38L38 62" stroke="#f8fafc" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+          </div>
         </div>
         <h2>Registro de Evaluación</h2>
         <p>Ingresa tus datos completos para habilitar la prueba y expedir tu Constancia con Valor Curricular.</p>
@@ -1095,7 +1088,6 @@
         </div>
       </div>
 
-      <!-- Cuota de Recuperación $20 MXN -->
       <div class="payment-box">
         <span class="payment-badge">CUOTA DE RECUPERACIÓN</span>
         <div class="payment-title">Constancia Oficial con Valor Curricular</div>
@@ -1118,7 +1110,6 @@
   <div id="certificateModal">
     <div class="cert-wrapper">
       <div class="cert-card" id="printableCert">
-        <!-- Marca de agua para previsualización -->
         <div class="watermark-overlay" id="certWatermark">
           PREVISUALIZACIÓN<br>VALIDACIÓN PENDIENTE
         </div>
@@ -1126,8 +1117,13 @@
         <div class="cert-content">
           <div class="cert-header">
             <div class="cert-logo-container">
-              <!-- Logo Oficial CapacitiumX Real en Constancia -->
-              <img src="data:image/jpeg;base64,TU_BASE64_LOGO" class="cert-logo-img" alt="CapacitiumX">
+              <!-- Logotipo Oficial Vectorial en Constancia -->
+              <svg width="65" height="65" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" rx="18" fill="#0f172a"/>
+                <path d="M25 50C25 36.1929 36.1929 25 50 25C58.5 25 66 29.5 70.5 36.5" stroke="#0284c7" stroke-width="8" stroke-linecap="round"/>
+                <path d="M75 50C75 63.8071 63.8071 75 50 75C41.5 75 34 70.5 29.5 63.5" stroke="#b45309" stroke-width="8" stroke-linecap="round"/>
+                <path d="M38 38L62 62M62 38L38 62" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+              </svg>
             </div>
             <div class="cert-subhead">CENTRO DE CAPACITACIÓN & DESARROLLO ESTRATÉGICO</div>
           </div>
@@ -1144,7 +1140,6 @@
             para el área de <strong id="certDisplayCareer">Carrera</strong> (<span id="certDisplayPeriod">Tetramestre</span>).
           </div>
 
-          <!-- Métricas limpias de resultados -->
           <div class="cert-metrics-box">
             <div>
               <div class="c-metric-val" id="certDisplayWpm">0 PPM</div>
@@ -1160,11 +1155,14 @@
             </div>
           </div>
 
-          <!-- Firma Oficial Institucional Exacta -->
           <div class="cert-footer">
             <div class="cert-sign-col">
-              <!-- Firma Oficial Nítida -->
-              <img src="data:image/png;base64,TU_BASE64_FIRMA" class="cert-signature-img" alt="Firma">
+              <!-- Firma Digital Vectorial Nítida -->
+              <svg class="signature-svg-box" viewBox="0 0 220 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 50 C 35 15, 45 10, 55 45 C 60 60, 40 65, 35 45 C 30 25, 75 20, 95 40 C 105 50, 115 35, 130 42 C 145 48, 155 30, 175 35 C 190 40, 205 25, 210 30" stroke="#0f172a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M25 45 L 195 45" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M140 18 C 145 28, 155 48, 160 52" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
+              </svg>
               <div class="cert-sign-line">Mtro. Rafael Garza Hinojosa</div>
               <div class="cert-sign-role">Director General CapacitiumX</div>
               <div class="cert-sign-cedula">Cédula Profesional: 15565061</div>
@@ -1179,14 +1177,12 @@
         </div>
       </div>
 
-      <!-- Barra de Acciones del Alumno + Botón Administrador -->
       <div class="cert-action-bar">
         <a id="btnCertWhatsApp" href="#" target="_blank" class="btn-wa-confirm">
           📲 Enviar Comprobante de $20 a WhatsApp
         </a>
         <button class="btn-close-cert" onclick="closeCertModal()">Volver a la Prueba</button>
         
-        <!-- Herramienta de Administrador protegida con contraseña -->
         <button class="admin-unlock-btn" onclick="unlockAdminDownload()">🔒 Modo Admin</button>
         <button class="btn-admin-download" id="btnAdminPrint" onclick="adminPrintCertificate()">🖨️ Descargar PDF Oficial (Admin)</button>
       </div>
@@ -1245,7 +1241,22 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL OBLIGATORIO Y ENVÍO AUTOMÁTICO AL CORREO
+    // Envío directo y garantizado de datos al correo
+    function sendEmailNotification(payload) {
+      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(data => console.log("Notificación sincronizada:", data))
+      .catch(err => console.error("Error al enviar notificación:", err));
+    }
+
+    // 1. REGISTRO INICIAL OBLIGATORIO Y AVISO DE INGRESO
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1261,29 +1272,25 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Envío en segundo plano de todos los datos al correo capacitiumx@gmail.com
-      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
-          Nombre_Completo: currentUser.name,
-          Edad: currentUser.age,
-          Municipio_Ciudad: currentUser.city,
-          Carrera_Especialidad: currentUser.career,
-          Grado_Semestre_Tetra: currentUser.period,
-          Telefono_WhatsApp: currentUser.phone,
-          Correo_Electronico: currentUser.email,
-          Folio_Asignado: currentUser.folio,
-          Fecha_Registro: new Date().toLocaleString("es-MX")
-        })
-      }).catch(err => console.error("Error al registrar:", err));
+      // Envío inmediato del ingreso de alumno
+      sendEmailNotification({
+        _subject: `🚨 [NUEVO REGISTRO] ${currentUser.name} (Folio: ${currentUser.folio})`,
+        _captcha: "false",
+        _template: "table",
+        Estado: "PARTICIPANTE HA INGRESADO A LA PRUEBA",
+        Nombre_Completo: currentUser.name,
+        Edad: currentUser.age,
+        Municipio_Ciudad: currentUser.city,
+        Carrera_Especialidad: currentUser.career,
+        Grado_Semestre_Tetra: currentUser.period,
+        Telefono_WhatsApp: currentUser.phone,
+        Correo_Electronico: currentUser.email,
+        Folio_Asignado: currentUser.folio,
+        Fecha_Hora: new Date().toLocaleString("es-MX")
+      });
 
-      // Actualizar saludo y concepto de pago
       document.getElementById('userGreetingTag').innerText = `Estudiante: ${currentUser.name} (${currentUser.career})`;
       document.getElementById('paymentConceptText').innerHTML = `<strong>Concepto:</strong> ${currentUser.name} Curricular`;
-
-      // Cerrar modal inicial
       document.getElementById('onboardingModal').style.display = 'none';
       focusInput();
     }
@@ -1296,7 +1303,7 @@
     function initSpeechRecognition() {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
-        voiceLiveTranscript.innerText = "Navegador sin soporte de voz nativo. Recomendado Chrome/Edge.";
+        voiceLiveTranscript.innerText = "Navegador sin soporte de voz nativo. Se sugiere Google Chrome o Edge.";
         btnToggleVoice.disabled = true;
         return;
       }
@@ -1524,7 +1531,7 @@
       }
     }
 
-    // 2. FINALIZAR PRUEBA Y ENVÍO AUTOMÁTICO DE MÉTRICAS A TU CORREO
+    // 2. FINALIZAR PRUEBA Y REPORTE DE RESULTADOS
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1538,41 +1545,40 @@
       const finalWpm = wpmTag.innerText;
       const finalAcc = accuracyTag.innerText;
       const finalDur = `${timeSpent}s`;
-      const finalModeName = isKey ? "Teclado" : "Voz";
+      const finalModeName = isKey ? "Teclado" : "Dictado por Voz";
       const finalErr = isKey ? kMistakes : vMistakes;
 
       document.getElementById('pillWpm').innerText = `${finalWpm} PPM`;
       document.getElementById('pillAcc').innerText = finalAcc;
-      document.getElementById('pillMode').innerText = finalModeName;
+      document.getElementById('pillMode').innerText = isKey ? "Teclado" : "Voz";
 
-      // ENVÍO EN SEGUNDO PLANO DE LOS RESULTADOS COMPLETOS A CAPACITIUMX@GMAIL.COM
-      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
-          Nombre_Completo: currentUser.name,
-          Edad: currentUser.age,
-          Municipio_Ciudad: currentUser.city,
-          Carrera_Especialidad: currentUser.career,
-          Grado_Semestre_Tetra: currentUser.period,
-          Telefono_WhatsApp: currentUser.phone,
-          Correo_Electronico: currentUser.email,
-          Folio_Oficial: currentUser.folio,
-          Velocidad_PPM: finalWpm,
-          Precision: finalAcc,
-          Errores_Cometidos: finalErr,
-          Tiempo_Empleado: finalDur,
-          Modalidad: finalModeName,
-          Cuota_Constancia: "$20.00 MXN",
-          Fecha_Hora: new Date().toLocaleString("es-MX")
-        })
-      }).catch(err => console.error("Error al sincronizar resultados:", err));
+      // Envío de resultados completos al correo
+      sendEmailNotification({
+        _subject: `🏆 [EVALUACIÓN CONCLUIDA] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
+        _captcha: "false",
+        _template: "table",
+        Estado: "EVALUACIÓN COMPLETADA EXITOSAMENTE",
+        Nombre_Completo: currentUser.name,
+        Edad: currentUser.age,
+        Municipio_Ciudad: currentUser.city,
+        Carrera_Especialidad: currentUser.career,
+        Grado_Semestre_Tetra: currentUser.period,
+        Telefono_WhatsApp: currentUser.phone,
+        Correo_Electronico: currentUser.email,
+        Folio_Oficial: currentUser.folio,
+        Velocidad_PPM: `${finalWpm} PPM`,
+        Precision_Obtenida: finalAcc,
+        Errores_Cometidos: finalErr,
+        Tiempo_Total_Segundos: finalDur,
+        Modalidad_Evaluada: finalModeName,
+        Cuota_Recuperacion: "$20.00 MXN",
+        Fecha_Hora: new Date().toLocaleString("es-MX")
+      });
 
       resultsModal.style.display = "flex";
     }
 
-    // 3. GENERAR Y DESPLEGAR LA PREVISUALIZACIÓN DE LA CONSTANCIA
+    // 3. DESPLEGAR LA PREVISUALIZACIÓN DE LA CONSTANCIA
     function openCertificateView() {
       const isKey = currentMode === 'keyboard';
       const finalWpm = wpmTag.innerText;
@@ -1580,7 +1586,6 @@
       const finalMode = isKey ? 'Teclado' : 'Dictado por Voz';
       const fechaHoy = new Date().toLocaleDateString("es-MX", { year: 'numeric', month: 'long', day: 'numeric' });
 
-      // Población de datos
       document.getElementById('certDisplayName').innerText = currentUser.name.toUpperCase();
       document.getElementById('certDisplayCareer').innerText = currentUser.career;
       document.getElementById('certDisplayPeriod').innerText = currentUser.period;
@@ -1590,7 +1595,6 @@
       document.getElementById('certDisplayFolio').innerText = currentUser.folio;
       document.getElementById('certDisplayDate').innerText = fechaHoy;
 
-      // Mensaje de WhatsApp para comprobante de $20 MXN
       const waMsg = `*PAGO DE CONSTANCIA CURRICULAR - CAPACITIUMX*%0A` +
         `━━━━━━━━━━━━━━━━━━━━%0A` +
         `🎓 *Alumno:* ${currentUser.name}%0A` +
@@ -1608,7 +1612,6 @@
       certificateModal.style.display = "flex";
     }
 
-    // Desbloqueo exclusivo para el Administrador con la clave Capamx_ 20_26
     function unlockAdminDownload() {
       const pass = prompt("Ingrese la clave de Administrador de CapacitiumX:");
       if (pass === ADMIN_PIN || pass === "Capamx_20_26") {
