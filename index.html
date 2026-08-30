@@ -40,7 +40,7 @@
       padding: 1.5rem;
     }
 
-    /* PANTALLA 1: REGISTRO OBLIGATORIO DE ACCESO */
+    /* PANTALLA 1: REGISTRO DE ACCESO */
     .onboarding-overlay {
       display: flex;
       position: fixed;
@@ -150,7 +150,7 @@
       opacity: 0.9;
     }
 
-    /* APLICACIÓN PRINCIPAL DE EVALUACIÓN */
+    /* APLICACIÓN PRINCIPAL */
     .container {
       width: 100%;
       max-width: 920px;
@@ -506,7 +506,7 @@
       text-transform: uppercase;
     }
 
-    /* Tarjeta de Recuperación $50 */
+    /* Cuota $50 */
     .payment-box {
       background: #0f172a;
       border: 1px solid var(--gold-dark);
@@ -1300,7 +1300,7 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL CON ENVÍO DIRECTO A TU CORREO
+    // 1. REGISTRO INICIAL MEDIANTE FORMDATA NATIVO
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1316,27 +1316,25 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Envío a capacitiumx@gmail.com
-      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
+      // Usar FormData para máxima compatibilidad móvil y evitar bloqueos de CORS
+      const formData = new FormData();
+      formData.append('_subject', `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`);
+      formData.append('_captcha', 'false');
+      formData.append('_template', 'table');
+      formData.append('Nombre_Completo', currentUser.name);
+      formData.append('Edad', currentUser.age);
+      formData.append('Municipio_Ciudad', currentUser.city);
+      formData.append('Carrera_Especialidad', currentUser.career);
+      formData.append('Grado_Semestre_Tetra', currentUser.period);
+      formData.append('Telefono_WhatsApp', currentUser.phone);
+      formData.append('Correo_Electronico', currentUser.email);
+      formData.append('Folio_Asignado', currentUser.folio);
+      formData.append('Fecha_Registro', new Date().toLocaleString("es-MX"));
+
+      fetch(`https://formsubmit.co/${TARGET_EMAIL}`, {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
-          _captcha: "false",
-          _template: "table",
-          Nombre_Completo: currentUser.name,
-          Edad: currentUser.age,
-          Municipio_Ciudad: currentUser.city,
-          Carrera_Especialidad: currentUser.career,
-          Grado_Semestre_Tetra: currentUser.period,
-          Telefono_WhatsApp: currentUser.phone,
-          Correo_Electronico: currentUser.email,
-          Folio_Asignado: currentUser.folio,
-          Fecha_Registro: new Date().toLocaleString("es-MX")
-        })
+        body: formData,
+        mode: "no-cors"
       }).catch(err => console.error("Error al registrar:", err));
 
       document.getElementById('userGreetingTag').innerText = `Estudiante: ${currentUser.name} (${currentUser.career})`;
@@ -1582,7 +1580,7 @@
       }
     }
 
-    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS A TU CORREO
+    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1603,32 +1601,30 @@
       document.getElementById('pillAcc').innerText = finalAcc;
       document.getElementById('pillMode').innerText = finalModeName;
 
-      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
+      const resultsData = new FormData();
+      resultsData.append('_subject', `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`);
+      resultsData.append('_captcha', 'false');
+      resultsData.append('_template', 'table');
+      resultsData.append('Nombre_Completo', currentUser.name);
+      resultsData.append('Edad', currentUser.age);
+      resultsData.append('Municipio_Ciudad', currentUser.city);
+      resultsData.append('Carrera_Especialidad', currentUser.career);
+      resultsData.append('Grado_Semestre_Tetra', currentUser.period);
+      resultsData.append('Telefono_WhatsApp', currentUser.phone);
+      resultsData.append('Correo_Electronico', currentUser.email);
+      resultsData.append('Folio_Oficial', currentUser.folio);
+      resultsData.append('Velocidad_PPM', finalWpm);
+      resultsData.append('Precision', finalAcc);
+      resultsData.append('Errores_Cometidos', finalErr);
+      resultsData.append('Tiempo_Empleado', finalDur);
+      resultsData.append('Modalidad', finalModeName);
+      resultsData.append('Cuota_Constancia', '$50.00 MXN');
+      resultsData.append('Fecha_Hora', new Date().toLocaleString("es-MX"));
+
+      fetch(`https://formsubmit.co/${TARGET_EMAIL}`, {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
-          _captcha: "false",
-          _template: "table",
-          Nombre_Completo: currentUser.name,
-          Edad: currentUser.age,
-          Municipio_Ciudad: currentUser.city,
-          Carrera_Especialidad: currentUser.career,
-          Grado_Semestre_Tetra: currentUser.period,
-          Telefono_WhatsApp: currentUser.phone,
-          Correo_Electronico: currentUser.email,
-          Folio_Oficial: currentUser.folio,
-          Velocidad_PPM: finalWpm,
-          Precision: finalAcc,
-          Errores_Cometidos: finalErr,
-          Tiempo_Empleado: finalDur,
-          Modalidad: finalModeName,
-          Cuota_Constancia: "$50.00 MXN",
-          Fecha_Hora: new Date().toLocaleString("es-MX")
-        })
+        body: resultsData,
+        mode: "no-cors"
       }).catch(err => console.error("Error al sincronizar resultados:", err));
 
       resultsModal.style.display = "flex";
