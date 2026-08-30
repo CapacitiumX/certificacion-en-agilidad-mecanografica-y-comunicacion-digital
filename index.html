@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CapacitiumX - Evaluación y Emisión de Constancia Curricular</title>
+  <title>CapacitiumX - Diagnóstico de Velocidad & Registro</title>
   <style>
     :root {
       --bg: #0b0f19;
@@ -11,8 +11,6 @@
       --card-border: #1f2937;
       --accent: #38bdf8;
       --accent-hover: #0284c7;
-      --gold: #f59e0b;
-      --gold-dark: #b45309;
       --voice-accent: #f43f5e;
       --voice-hover: #e11d48;
       --text-main: #f3f4f6;
@@ -40,7 +38,7 @@
       padding: 1.5rem;
     }
 
-    /* PANTALLA 1: REGISTRO OBLIGATORIO DE ACCESO */
+    /* PANTALLA INICIAL DE CAPTURA */
     .onboarding-overlay {
       display: flex;
       position: fixed;
@@ -48,13 +46,12 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(11, 15, 25, 0.98);
-      backdrop-filter: blur(10px);
+      background: rgba(11, 15, 25, 0.96);
+      backdrop-filter: blur(8px);
       justify-content: center;
       align-items: center;
       z-index: 200;
       padding: 1rem;
-      overflow-y: auto;
     }
 
     .form-card {
@@ -62,67 +59,48 @@
       border: 1px solid var(--card-border);
       border-radius: 16px;
       padding: 2.2rem;
-      max-width: 540px;
+      max-width: 520px;
       width: 100%;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-      margin: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
     }
 
     .form-header {
       text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .app-logo-badge {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 0.8rem;
-    }
-
-    .logo-svg-box {
-      width: 75px;
-      height: 75px;
-      border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
-      background: #0f172a;
-      border: 1px solid #334155;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      margin-bottom: 1.8rem;
     }
 
     .form-header h2 {
       color: var(--accent);
-      font-size: 1.6rem;
-      margin-bottom: 0.3rem;
+      font-size: 1.7rem;
+      margin-bottom: 0.4rem;
     }
 
     .form-header p {
       color: var(--text-muted);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       line-height: 1.4;
     }
 
     .input-group {
-      margin-bottom: 0.85rem;
+      margin-bottom: 1rem;
     }
 
     .input-group label {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--text-main);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.3rem;
     }
 
     .input-group input, .input-group select {
       width: 100%;
-      padding: 0.65rem 0.85rem;
+      padding: 0.7rem 0.9rem;
       border-radius: 8px;
       border: 1px solid var(--card-border);
       background: #030712;
       color: #fff;
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       outline: none;
       transition: border-color 0.2s;
     }
@@ -131,34 +109,34 @@
       border-color: var(--accent);
     }
 
-    .grid-2 {
+    .grid-2-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
+      gap: 0.8rem;
     }
 
-    .btn-submit-gate {
+    .btn-submit {
       width: 100%;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      color: #0b0f19;
-      font-weight: 800;
+      background: var(--accent);
+      color: #04121d;
+      font-weight: 700;
       font-size: 0.95rem;
-      padding: 0.85rem;
+      padding: 0.8rem;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: opacity 0.2s;
+      transition: background 0.2s;
       margin-top: 0.6rem;
     }
 
-    .btn-submit-gate:hover {
-      opacity: 0.9;
+    .btn-submit:hover {
+      background: var(--accent-hover);
     }
 
-    /* APLICACIÓN PRINCIPAL DE EVALUACIÓN */
+    /* APLICACIÓN PRINCIPAL */
     .container {
       width: 100%;
-      max-width: 920px;
+      max-width: 900px;
       background-color: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 16px;
@@ -168,10 +146,10 @@
 
     header {
       text-align: center;
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.5rem;
     }
 
-    .user-tag {
+    .welcome-badge {
       display: inline-block;
       background: #1e293b;
       border: 1px solid var(--card-border);
@@ -183,14 +161,14 @@
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.9rem;
       color: var(--accent);
       margin-bottom: 0.4rem;
     }
 
     p.subtitle {
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
 
     .mode-switch {
@@ -204,7 +182,7 @@
       background: #1e293b;
       border: 1px solid var(--card-border);
       color: var(--text-muted);
-      padding: 0.6rem 1.3rem;
+      padding: 0.55rem 1.2rem;
       border-radius: 10px;
       cursor: pointer;
       font-weight: 600;
@@ -240,7 +218,7 @@
     }
 
     .stat-value {
-      font-size: 1.75rem;
+      font-size: 1.7rem;
       font-weight: 700;
       color: var(--accent);
       margin-bottom: 0.2rem;
@@ -287,7 +265,7 @@
     .text-display {
       font-family: 'Consolas', 'Courier New', monospace;
       font-size: 1.15rem;
-      line-height: 1.75;
+      line-height: 1.7;
       letter-spacing: 0.4px;
       user-select: none;
       word-break: break-word;
@@ -408,8 +386,8 @@
       color: #0b0f19;
       border: none;
       border-radius: 8px;
-      padding: 0.55rem 1.2rem;
-      font-size: 0.9rem;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
       transition: background 0.2s;
@@ -447,559 +425,169 @@
       100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
     }
 
-    /* PANTALLA 2: MODAL DE RESULTADOS Y PAGO */
-    .modal-overlay {
+    /* MODAL DE RESULTADOS & REPORTE */
+    .results-overlay {
       display: none;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(11, 15, 25, 0.94);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(6px);
       justify-content: center;
       align-items: center;
       z-index: 150;
       padding: 1rem;
-      overflow-y: auto;
     }
 
-    .modal-card {
+    .results-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 16px;
-      padding: 2.2rem;
-      max-width: 540px;
-      width: 100%;
-      margin: auto;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      padding: 2rem;
       text-align: center;
+      max-width: 480px;
+      width: 100%;
     }
 
-    .modal-title {
+    .results-title {
       color: var(--accent);
-      font-size: 1.6rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .modal-subtitle {
-      color: var(--text-muted);
-      font-size: 0.88rem;
+      font-size: 1.45rem;
       margin-bottom: 1.2rem;
     }
 
-    .score-summary-pills {
+    .results-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.6rem;
-      background: #030712;
-      border: 1px solid var(--card-border);
-      padding: 0.9rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .result-item {
+      background: #1e293b;
+      padding: 0.75rem;
       border-radius: 10px;
-      margin-bottom: 1.2rem;
     }
 
-    .score-pill strong {
-      display: block;
-      color: var(--gold);
-      font-size: 1.25rem;
+    .result-val {
+      font-size: 1.55rem;
+      font-weight: bold;
     }
 
-    .score-pill span {
+    .result-lbl {
       font-size: 0.72rem;
       color: var(--text-muted);
-      text-transform: uppercase;
+      margin-top: 0.2rem;
     }
 
-    .payment-box {
+    .promo-box {
       background: #0f172a;
-      border: 1px solid var(--gold-dark);
+      border: 1px solid #334155;
       border-radius: 12px;
-      padding: 1.2rem;
+      padding: 1rem;
       margin-bottom: 1.2rem;
       text-align: left;
     }
 
-    .payment-badge {
-      background: var(--gold);
-      color: #0b0f19;
-      font-weight: 800;
-      font-size: 0.75rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      display: inline-block;
-      margin-bottom: 0.5rem;
-    }
-
-    .payment-title {
-      color: #fff;
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 0.4rem;
-    }
-
-    .payment-amount {
-      font-size: 1.3rem;
-      color: var(--gold);
-      font-weight: 800;
-      margin-bottom: 0.6rem;
-    }
-
-    .payment-details {
-      background: #030712;
-      border: 1px dashed #334155;
-      padding: 0.75rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      color: var(--text-main);
-      line-height: 1.5;
-    }
-
-    .card-number-highlight {
-      font-family: 'Consolas', monospace;
-      font-size: 1.1rem;
-      color: #fbbf24;
-      font-weight: bold;
-      letter-spacing: 1px;
-      display: block;
-      margin: 0.2rem 0;
-    }
-
-    .btn-view-cert {
-      width: 100%;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      color: #0b0f19;
-      font-weight: 800;
-      font-size: 1rem;
-      padding: 0.85rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-
-    .btn-view-cert:hover {
-      opacity: 0.9;
-    }
-
-    /* PANTALLA 3: PREVISUALIZACIÓN DE CONSTANCIA */
-    #certificateModal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(5, 8, 15, 0.98);
-      z-index: 300;
-      padding: 1.5rem;
-      overflow-y: auto;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .cert-wrapper {
-      max-width: 900px;
-      width: 100%;
-      margin: auto;
-    }
-
-    .cert-card {
-      background: #ffffff;
-      color: #1e293b;
-      border: 10px double #b45309;
-      border-radius: 12px;
-      padding: 2.8rem 2.8rem;
-      position: relative;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-      background-image: radial-gradient(#ffffff 85%, #f8fafc 100%);
-      overflow: hidden;
-    }
-
-    .cert-card::before {
-      content: "";
-      position: absolute;
-      top: 6px; left: 6px; right: 6px; bottom: 6px;
-      border: 2px solid #d97706;
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .watermark-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-30deg);
-      font-size: 3.2rem;
-      font-weight: 900;
-      color: rgba(180, 83, 9, 0.12);
-      text-transform: uppercase;
-      letter-spacing: 6px;
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 1;
-      user-select: none;
-      text-align: center;
-      line-height: 1.2;
-    }
-
-    .cert-content {
-      position: relative;
-      z-index: 3;
-    }
-
-    .cert-header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 1.2rem;
-    }
-
-    .cert-logo-container {
-      margin-bottom: 0.5rem;
-    }
-
-    .cert-subhead {
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 2.5px;
-      color: #64748b;
-      margin-top: 0.2rem;
-      font-weight: 700;
-    }
-
-    .cert-title-big {
-      font-size: 1.95rem;
-      font-weight: 800;
-      color: #b45309;
-      text-align: center;
-      margin: 0.6rem 0 0.3rem 0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .cert-granted-to {
-      text-align: center;
-      font-size: 0.95rem;
-      color: #475569;
-      font-style: italic;
-    }
-
-    .cert-student-name {
-      text-align: center;
-      font-size: 2.1rem;
-      font-weight: 900;
-      color: #0f172a;
-      margin: 0.8rem 0;
-      text-decoration: underline;
-      text-decoration-color: #f59e0b;
-      text-underline-offset: 6px;
-    }
-
-    .cert-body-text {
-      text-align: center;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: #334155;
-      max-width: 740px;
-      margin: 0 auto 1.4rem auto;
-    }
-
-    .cert-metrics-box {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 0.9rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .c-metric-val {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #b45309;
-    }
-
-    .c-metric-lbl {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      color: #64748b;
-      font-weight: 700;
-    }
-
-    .cert-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-top: 1.2rem;
-      padding-top: 0.8rem;
-      border-top: 1px dashed #cbd5e1;
-    }
-
-    .cert-sign-col {
-      text-align: center;
-      width: 320px;
-      position: relative;
-    }
-
-    .signature-svg-box {
-      width: 170px;
-      height: 55px;
-      margin: 0 auto -5px auto;
-      display: block;
-    }
-
-    .cert-sign-line {
-      border-top: 2px solid #0f172a;
-      padding-top: 0.4rem;
-      font-size: 0.92rem;
-      font-weight: 800;
-      color: #0f172a;
-      line-height: 1.2;
-    }
-
-    .cert-sign-role {
-      font-size: 0.8rem;
-      color: #1e293b;
-      font-weight: 700;
-      margin-top: 0.15rem;
-    }
-
-    .cert-sign-cedula {
-      font-size: 0.75rem;
-      color: #64748b;
-      font-weight: 600;
-      margin-top: 0.15rem;
-    }
-
-    .cert-folio-col {
-      text-align: right;
-      font-size: 0.78rem;
-      color: #64748b;
-      line-height: 1.45;
-    }
-
-    .cert-folio-col strong {
-      color: #0f172a;
-    }
-
-    .cert-action-bar {
-      margin-top: 1.5rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .btn-wa-confirm {
-      background: var(--whatsapp-green);
-      color: #052e16;
-      font-weight: 800;
-      padding: 0.9rem 1.8rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 0.98rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: background 0.2s;
-      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
-    }
-
-    .btn-wa-confirm:hover {
-      background: var(--whatsapp-hover);
-    }
-
-    .btn-close-cert {
-      background: #334155;
-      color: #f8fafc;
-      font-weight: 700;
-      padding: 0.9rem 1.4rem;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .admin-unlock-btn {
-      background: transparent;
-      border: 1px solid #334155;
-      color: #64748b;
-      font-size: 0.78rem;
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .admin-unlock-btn:hover {
-      border-color: var(--accent);
+    .promo-box h4 {
       color: var(--accent);
+      font-size: 0.92rem;
+      margin-bottom: 0.3rem;
     }
 
-    .btn-admin-download {
-      display: none;
-      background: #0f172a;
-      color: #38bdf8;
+    .promo-box p {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      line-height: 1.35;
+      margin-bottom: 0.8rem;
+    }
+
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      background-color: var(--whatsapp-green);
+      color: #042f1a;
       font-weight: 700;
-      padding: 0.9rem 1.5rem;
+      font-size: 0.88rem;
+      text-decoration: none;
+      padding: 0.7rem;
       border-radius: 8px;
-      border: 1px solid #38bdf8;
-      cursor: pointer;
-      font-size: 0.95rem;
+      transition: background 0.2s;
     }
 
-    /* CONFIGURACIÓN DE IMPRESIÓN OFICIAL */
-    @page {
-      size: letter landscape;
-      margin: 0;
+    .btn-whatsapp:hover {
+      background-color: var(--whatsapp-hover);
     }
 
-    @media print {
-      html, body {
-        margin: 0 !important;
-        padding: 0 !important;
-        background: #ffffff !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-      }
-      body * {
-        visibility: hidden;
-      }
-      #certificateModal, #certificateModal * {
-        visibility: visible;
-      }
-      #certificateModal {
-        position: fixed !important;
-        left: 0 !important;
-        top: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        padding: 0.6cm !important;
-        margin: 0 !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        background: #ffffff !important;
-        box-sizing: border-box !important;
-      }
-      .watermark-overlay {
-        display: none !important;
-      }
-      .cert-wrapper {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-      }
-      .cert-card {
-        box-shadow: none !important;
-        border: 8px double #b45309 !important;
-        padding: 2.2rem 2rem !important;
-        page-break-inside: avoid !important;
-      }
-      .cert-action-bar, .admin-unlock-btn {
-        display: none !important;
-      }
-    }
-
-    @media (max-width: 650px) {
+    @media (max-width: 600px) {
       .stats-bar { grid-template-columns: repeat(2, 1fr); }
-      .container { padding: 1.2rem; }
-      .grid-2 { grid-template-columns: 1fr; }
-      .score-summary-pills { grid-template-columns: 1fr; }
-      .cert-metrics-box { grid-template-columns: 1fr; }
-      .cert-card { padding: 1.5rem; }
-      .cert-student-name { font-size: 1.4rem; }
-      .cert-footer { flex-direction: column; align-items: center; gap: 1.5rem; }
-      .cert-sign-col { width: 100%; }
-      .cert-folio-col { text-align: center; }
-      .watermark-overlay { font-size: 1.8rem; }
+      .container { padding: 1.5rem; }
+      .grid-2-col { grid-template-columns: 1fr; gap: 0; }
+      .controls { flex-direction: column; align-items: stretch; }
+      .actions-group { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-  <!-- PANTALLA 1: REGISTRO DE ENTRADA -->
+  <!-- PANTALLA 1: FORMULARIO DE ACCESO Y ENVÍO AUTOMÁTICO A TU CORREO -->
   <div class="onboarding-overlay" id="onboardingModal">
     <div class="form-card">
       <div class="form-header">
-        <div class="app-logo-badge">
-          <!-- Logotipo Oficial CapacitiumX Vectorial -->
-          <div class="logo-svg-box">
-            <svg width="55" height="55" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="100" height="100" rx="20" fill="#0f172a"/>
-              <path d="M25 50C25 36.1929 36.1929 25 50 25C58.5 25 66 29.5 70.5 36.5" stroke="#38bdf8" stroke-width="8" stroke-linecap="round"/>
-              <path d="M75 50C75 63.8071 63.8071 75 50 75C41.5 75 34 70.5 29.5 63.5" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
-              <path d="M38 38L62 62M62 38L38 62" stroke="#f8fafc" stroke-width="7" stroke-linecap="round"/>
-            </svg>
-          </div>
-        </div>
-        <h2>Registro de Evaluación</h2>
-        <p>Ingresa tus datos completos para habilitar la prueba y expedir tu Constancia con Valor Curricular.</p>
+        <h2>Evaluación de Diagnóstico</h2>
+        <p>Ingresa tus datos para habilitar el simulador. Recibirás tu constancia y recomendaciones de formación.</p>
       </div>
 
-      <form id="onboardingForm" onsubmit="handleInitialRegistration(event)">
+      <form id="leadForm" onsubmit="handleRegistration(event)">
         <div class="input-group">
-          <label for="studentName">Nombre Completo (para tu constancia) *</label>
-          <input type="text" id="studentName" placeholder="Ej. Juan Pérez Garza" required>
+          <label for="userName">Nombre Completo *</label>
+          <input type="text" id="userName" name="Nombre" placeholder="Ej. Juan Pérez" required>
         </div>
 
-        <div class="grid-2">
-          <div class="input-group">
-            <label for="studentAge">Edad *</label>
-            <input type="number" id="studentAge" min="14" max="99" placeholder="Ej. 24" required>
-          </div>
-          <div class="input-group">
-            <label for="studentCity">Municipio / Ciudad *</label>
-            <input type="text" id="studentCity" placeholder="Ej. Monterrey, Santa Catarina, etc." required>
-          </div>
+        <div class="input-group">
+          <label for="userEmail">Correo Electrónico *</label>
+          <input type="email" id="userEmail" name="Email" placeholder="correo@ejemplo.com" required>
         </div>
 
-        <div class="grid-2">
+        <div class="input-group">
+          <label for="userPhone">WhatsApp / Teléfono *</label>
+          <input type="tel" id="userPhone" name="Telefono" placeholder="10 dígitos" required>
+        </div>
+
+        <div class="grid-2-col">
           <div class="input-group">
-            <label for="studentCareer">Carrera o Especialidad *</label>
-            <input type="text" id="studentCareer" placeholder="Ej. Administración de Empresas" required>
+            <label for="userCareer">Carrera o Especialidad *</label>
+            <input type="text" id="userCareer" name="Carrera" placeholder="Ej. Administración" required>
           </div>
+
           <div class="input-group">
-            <label for="studentPeriod">Grado / Semestre / Tetra *</label>
-            <select id="studentPeriod" required>
+            <label for="userPeriod">Semestre / Tetramestre *</label>
+            <select id="userPeriod" name="Semestre_o_Tetra" required>
               <option value="" disabled selected>Selecciona</option>
-              <option value="1° a 3° Tetramestre / Semestre">1° - 3° Tetra / Semestre</option>
-              <option value="4° a 6° Tetramestre / Semestre">4° - 6° Tetra / Semestre</option>
-              <option value="7° a 9° Tetramestre / Semestre">7° - 9° Tetra / Semestre</option>
-              <option value="Egresado / En Proceso de Titulación">Egresado / Titulado</option>
-              <option value="Posgrado / Maestría">Posgrado / Maestría</option>
+              <option value="1 a 3">1° - 3°</option>
+              <option value="4 a 6">4° - 6°</option>
+              <option value="7 a 9">7° - 9°</option>
+              <option value="Egresado">Egresado</option>
+              <option value="Posgrado">Posgrado / Maestría</option>
             </select>
           </div>
         </div>
 
-        <div class="grid-2">
-          <div class="input-group">
-            <label for="studentPhone">WhatsApp / Teléfono Móvil *</label>
-            <input type="tel" id="studentPhone" placeholder="10 dígitos" required>
-          </div>
-          <div class="input-group">
-            <label for="studentEmail">Correo Electrónico *</label>
-            <input type="email" id="studentEmail" placeholder="correo@ejemplo.com" required>
-          </div>
-        </div>
-
-        <button type="submit" class="btn-submit-gate" id="btnSubmitInitial">
-          🚀 Iniciar Evaluación Diagnóstica
-        </button>
+        <button type="submit" class="btn-submit" id="btnSubmitForm">Acceder a la Evaluación</button>
       </form>
     </div>
   </div>
 
-  <!-- PANTALLA 2: SIMULADOR DE EVALUACIÓN -->
-  <div class="container" id="mainTestContainer">
+  <!-- PANTALLA 2: APLICACIÓN PRINCIPAL -->
+  <div class="container">
     <header>
-      <div class="user-tag" id="userGreetingTag">Bienvenido a CapacitiumX</div>
+      <div class="welcome-badge" id="userGreetingBadge">CapacitiumX Diagnóstico</div>
       <h1 id="mainTitle">Test de Velocidad & Fluidez</h1>
-      <p class="subtitle">Escribe con el teclado o lee en voz alta con dictado inteligente.</p>
+      <p class="subtitle">Mide tu agilidad en teclado o dicción verbal con dictado de voz inteligente.</p>
     </header>
 
     <div class="mode-switch">
@@ -1007,6 +595,7 @@
       <button class="mode-btn" id="btnModeVoice" onclick="switchMode('voice')">Modo Dictado de Voz</button>
     </div>
 
+    <!-- Barra de Métricas -->
     <div class="stats-bar">
       <div class="stat-card">
         <div class="stat-value" id="timer">60</div>
@@ -1026,6 +615,7 @@
       </div>
     </div>
 
+    <!-- SECCIÓN TECLADO -->
     <div class="test-section active" id="keyboardSection">
       <div class="box-container keyboard-box" onclick="focusInput()">
         <div class="text-display" id="textDisplay"></div>
@@ -1045,6 +635,7 @@
       </div>
     </div>
 
+    <!-- SECCIÓN VOZ -->
     <div class="test-section" id="voiceSection">
       <div class="box-container">
         <div class="voice-words-container" id="voiceWordsContainer"></div>
@@ -1067,142 +658,54 @@
 
   </div>
 
-  <!-- PANTALLA 3: MODAL DE RESULTADOS Y PAGO DE $20 -->
-  <div class="modal-overlay" id="resultsModal">
-    <div class="modal-card">
-      <h2 class="modal-title">¡Evaluación Concluida!</h2>
-      <p class="modal-subtitle">Tus métricas oficiales han sido registradas exitosamente.</p>
-
-      <div class="score-summary-pills">
-        <div class="score-pill">
-          <strong id="pillWpm">0</strong>
-          <span>Velocidad</span>
+  <!-- PANTALLA 3: RESULTADOS Y ENVÍO A WHATSAPP -->
+  <div class="results-overlay" id="resultsModal">
+    <div class="results-card">
+      <h2 class="results-title" id="modalTitle">¡Evaluación Concluida!</h2>
+      <div class="results-grid">
+        <div class="result-item">
+          <div class="result-val" id="finalWpm">0</div>
+          <div class="result-lbl">Palabras / Minuto</div>
         </div>
-        <div class="score-pill">
-          <strong id="pillAcc">0%</strong>
-          <span>Precisión</span>
+        <div class="result-item">
+          <div class="result-val" id="finalAccuracy">0%</div>
+          <div class="result-lbl">Precisión</div>
         </div>
-        <div class="score-pill">
-          <strong id="pillMode">Teclado</strong>
-          <span>Modalidad</span>
+        <div class="result-item">
+          <div class="result-val" id="finalTimeSpent">0s</div>
+          <div class="result-lbl">Tiempo Empleado</div>
         </div>
-      </div>
-
-      <div class="payment-box">
-        <span class="payment-badge">CUOTA DE RECUPERACIÓN</span>
-        <div class="payment-title">Constancia Oficial con Valor Curricular</div>
-        <div class="payment-amount">$20.00 MXN</div>
-        
-        <div class="payment-details">
-          <div><strong>Institución:</strong> Spin by OXXO</div>
-          <div><strong>Tarjeta:</strong> <span class="card-number-highlight">4217 4702 9453 6848</span></div>
-          <div id="paymentConceptText"><strong>Concepto:</strong> [Tu Nombre] + Curricular</div>
+        <div class="result-item">
+          <div class="result-val" id="finalMistakes">0</div>
+          <div class="result-lbl">Errores</div>
         </div>
       </div>
 
-      <button class="btn-view-cert" onclick="openCertificateView()">
-        👁️ Previsualizar mi Constancia
-      </button>
-    </div>
-  </div>
-
-  <!-- PANTALLA 4: PREVISUALIZACIÓN DE CONSTANCIA CON MARCA DE AGUA -->
-  <div id="certificateModal">
-    <div class="cert-wrapper">
-      <div class="cert-card" id="printableCert">
-        <div class="watermark-overlay" id="certWatermark">
-          PREVISUALIZACIÓN<br>VALIDACIÓN PENDIENTE
-        </div>
-
-        <div class="cert-content">
-          <div class="cert-header">
-            <div class="cert-logo-container">
-              <!-- Logotipo Oficial Vectorial en Constancia -->
-              <svg width="65" height="65" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100" height="100" rx="18" fill="#0f172a"/>
-                <path d="M25 50C25 36.1929 36.1929 25 50 25C58.5 25 66 29.5 70.5 36.5" stroke="#0284c7" stroke-width="8" stroke-linecap="round"/>
-                <path d="M75 50C75 63.8071 63.8071 75 50 75C41.5 75 34 70.5 29.5 63.5" stroke="#b45309" stroke-width="8" stroke-linecap="round"/>
-                <path d="M38 38L62 62M62 38L38 62" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="cert-subhead">CENTRO DE CAPACITACIÓN & DESARROLLO ESTRATÉGICO</div>
-          </div>
-
-          <div class="cert-title-big">CONSTANCIA DE HABILIDADES</div>
-          <div class="cert-granted-to">Se otorga la presente constancia con valor curricular a:</div>
-
-          <div class="cert-student-name" id="certDisplayName">NOMBRE DEL ESTUDIANTE</div>
-
-          <div class="cert-body-text">
-            Por haber completado y acreditado satisfactoriamente la evaluación estandarizada de 
-            <strong>Competencias Digitales, Velocidad de Escritura y Expresión Verbal</strong>, 
-            demostrando un alto rendimiento en agilidad de procesamiento de datos y fluidez comunicativa 
-            para el área de <strong id="certDisplayCareer">Carrera</strong> (<span id="certDisplayPeriod">Tetramestre</span>).
-          </div>
-
-          <div class="cert-metrics-box">
-            <div>
-              <div class="c-metric-val" id="certDisplayWpm">0 PPM</div>
-              <div class="c-metric-lbl">Velocidad Promedio</div>
-            </div>
-            <div>
-              <div class="c-metric-val" id="certDisplayAcc">0%</div>
-              <div class="c-metric-lbl">Precisión Obtenida</div>
-            </div>
-            <div>
-              <div class="c-metric-val" id="certDisplayMode">Teclado</div>
-              <div class="c-metric-lbl">Modalidad Evaluada</div>
-            </div>
-          </div>
-
-          <div class="cert-footer">
-            <div class="cert-sign-col">
-              <!-- Firma Digital Vectorial Nítida -->
-              <svg class="signature-svg-box" viewBox="0 0 220 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 50 C 35 15, 45 10, 55 45 C 60 60, 40 65, 35 45 C 30 25, 75 20, 95 40 C 105 50, 115 35, 130 42 C 145 48, 155 30, 175 35 C 190 40, 205 25, 210 30" stroke="#0f172a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M25 45 L 195 45" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M140 18 C 145 28, 155 48, 160 52" stroke="#0f172a" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              <div class="cert-sign-line">Mtro. Rafael Garza Hinojosa</div>
-              <div class="cert-sign-role">Director General CapacitiumX</div>
-              <div class="cert-sign-cedula">Cédula Profesional: 15565061</div>
-            </div>
-
-            <div class="cert-folio-col">
-              <div><strong>Folio Oficial:</strong> <span id="certDisplayFolio">CPX-2026-0000</span></div>
-              <div><strong>Fecha de Emisión:</strong> <span id="certDisplayDate">30 de Agosto de 2026</span></div>
-              <div><strong>Validez Curricular:</strong> Sujeta a Validación de Pago</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="cert-action-bar">
-        <a id="btnCertWhatsApp" href="#" target="_blank" class="btn-wa-confirm">
-          📲 Enviar Comprobante de $20 a WhatsApp
+      <!-- Envío Directo del Reporte a tu WhatsApp -->
+      <div class="promo-box">
+        <h4 id="promoUserName">Reporte Listo para CapacitiumX</h4>
+        <p>Envía tus resultados directamente al asesor para recibir tu retroalimentación y oferta educativa personalizada.</p>
+        <a id="btnWhatsAppReport" href="#" target="_blank" class="btn-whatsapp">
+          Enviar Resultados por WhatsApp al 8131103846
         </a>
-        <button class="btn-close-cert" onclick="closeCertModal()">Volver a la Prueba</button>
-        
-        <button class="admin-unlock-btn" onclick="unlockAdminDownload()">🔒 Modo Admin</button>
-        <button class="btn-admin-download" id="btnAdminPrint" onclick="adminPrintCertificate()">🖨️ Descargar PDF Oficial (Admin)</button>
       </div>
+
+      <button class="btn-action" style="width: 100%;" onclick="closeModalAndReset()">Hacer Otra Prueba</button>
     </div>
   </div>
 
   <script>
+    // DATOS DE CONTACTO DE CAPACITIUMX
     const TARGET_EMAIL = "capacitiumx@gmail.com";
     const TARGET_WHATSAPP = "528131103846";
-    const ADMIN_PIN = "Capamx_ 20_26";
 
+    // Variables de Registro
     let currentUser = {
       name: "",
-      age: "",
-      city: "",
-      career: "",
-      period: "",
-      phone: "",
       email: "",
-      folio: ""
+      phone: "",
+      career: "",
+      period: ""
     };
 
     const texts = [
@@ -1217,11 +720,13 @@
     let timeSpent = 0;
     let timer = null;
 
+    // Estado Teclado
     let isTyping = false;
     let charIndex = 0;
     let kMistakes = 0;
     let totalTypedChars = 0;
 
+    // Estado Voz
     let recognition = null;
     let isRecording = false;
     let voiceWords = [];
@@ -1229,6 +734,7 @@
     let vCorrectWords = 0;
     let vMistakes = 0;
 
+    // DOM
     const timerTag = document.getElementById('timer');
     const wpmTag = document.getElementById('wpm');
     const accuracyTag = document.getElementById('accuracy');
@@ -1239,71 +745,61 @@
     const voiceLiveTranscript = document.getElementById('voiceLiveTranscript');
     const btnToggleVoice = document.getElementById('btnToggleVoice');
     const resultsModal = document.getElementById('resultsModal');
-    const certificateModal = document.getElementById('certificateModal');
 
-    // Envío directo y garantizado de datos al correo
-    function sendEmailNotification(payload) {
+    // 1. ENVÍO AUTOMÁTICO DE DATOS INICIALES A TU CORREO
+    function handleRegistration(event) {
+      event.preventDefault();
+      const btnSubmit = document.getElementById('btnSubmitForm');
+      btnSubmit.innerText = "Registrando y accediendo...";
+      btnSubmit.disabled = true;
+
+      currentUser.name = document.getElementById('userName').value.trim();
+      currentUser.email = document.getElementById('userEmail').value.trim();
+      currentUser.phone = document.getElementById('userPhone').value.trim();
+      currentUser.career = document.getElementById('userCareer').value.trim();
+      currentUser.period = document.getElementById('userPeriod').value;
+
+      // Envío en segundo plano al correo capacitiumx@gmail.com
       fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
         headers: { 
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          _subject: `Nuevo Registro de Alumno: ${currentUser.name}`,
+          Nombre_Completo: currentUser.name,
+          Email: currentUser.email,
+          Telefono_WhatsApp: currentUser.phone,
+          Carrera_Especialidad: currentUser.career,
+          Semestre_Tetra: currentUser.period,
+          Fecha_Hora: new Date().toLocaleString("es-MX")
+        })
       })
-      .then(res => res.json())
-      .then(data => console.log("Notificación sincronizada:", data))
-      .catch(err => console.error("Error al enviar notificación:", err));
-    }
+      .then(response => response.json())
+      .then(data => console.log("Registro enviado a correo:", data))
+      .catch(error => console.error("Error al enviar a correo:", error));
 
-    // 1. REGISTRO INICIAL OBLIGATORIO Y AVISO DE INGRESO
-    function handleInitialRegistration(event) {
-      event.preventDefault();
-      const btn = document.getElementById('btnSubmitInitial');
-      btn.innerText = "Registrando...";
-      btn.disabled = true;
+      // Actualizar interfaz
+      document.getElementById('userGreetingBadge').innerText = `Estudiante: ${currentUser.name} | ${currentUser.career} (${currentUser.period})`;
+      document.getElementById('promoUserName').innerText = `¡${currentUser.name}, resultados listos!`;
 
-      currentUser.name = document.getElementById('studentName').value.trim();
-      currentUser.age = document.getElementById('studentAge').value.trim();
-      currentUser.city = document.getElementById('studentCity').value.trim();
-      currentUser.career = document.getElementById('studentCareer').value.trim();
-      currentUser.period = document.getElementById('studentPeriod').value;
-      currentUser.phone = document.getElementById('studentPhone').value.trim();
-      currentUser.email = document.getElementById('studentEmail').value.trim();
-      currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
-
-      // Envío inmediato del ingreso de alumno
-      sendEmailNotification({
-        _subject: `🚨 [NUEVO REGISTRO] ${currentUser.name} (Folio: ${currentUser.folio})`,
-        _captcha: "false",
-        _template: "table",
-        Estado: "PARTICIPANTE HA INGRESADO A LA PRUEBA",
-        Nombre_Completo: currentUser.name,
-        Edad: currentUser.age,
-        Municipio_Ciudad: currentUser.city,
-        Carrera_Especialidad: currentUser.career,
-        Grado_Semestre_Tetra: currentUser.period,
-        Telefono_WhatsApp: currentUser.phone,
-        Correo_Electronico: currentUser.email,
-        Folio_Asignado: currentUser.folio,
-        Fecha_Hora: new Date().toLocaleString("es-MX")
-      });
-
-      document.getElementById('userGreetingTag').innerText = `Estudiante: ${currentUser.name} (${currentUser.career})`;
-      document.getElementById('paymentConceptText').innerHTML = `<strong>Concepto:</strong> ${currentUser.name} Curricular`;
+      // Ocultar modal de registro
       document.getElementById('onboardingModal').style.display = 'none';
       focusInput();
     }
 
+    // Normalizador de texto para voz
     function cleanWord(str) {
       if (!str) return "";
       return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[.,;:!?¿¡"'()]/g, "").trim();
     }
 
+    // Configuración Reconocimiento de Voz
     function initSpeechRecognition() {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
-        voiceLiveTranscript.innerText = "Navegador sin soporte de voz nativo. Se sugiere Google Chrome o Edge.";
+        voiceLiveTranscript.innerText = "Navegador sin soporte de voz nativo. Recomendado Chrome/Edge.";
         btnToggleVoice.disabled = true;
         return;
       }
@@ -1325,7 +821,7 @@
 
       recognition.onerror = (e) => {
         if (e.error === 'not-allowed') {
-          voiceLiveTranscript.innerText = "Acceso al micrófono denegado.";
+          voiceLiveTranscript.innerText = "Micrófono bloqueado. Permite el acceso.";
           stopVoiceTest();
         }
       };
@@ -1409,6 +905,7 @@
       }
     }
 
+    // Teclado
     function loadKeyboardParagraph() {
       const rand = Math.floor(Math.random() * texts.length);
       textDisplay.innerHTML = "";
@@ -1475,6 +972,7 @@
       mistakesTag.innerText = kMistakes;
     }
 
+    // Voz
     function loadVoiceParagraph() {
       const rand = Math.floor(Math.random() * texts.length);
       voiceWords = texts[rand].split(" ");
@@ -1531,7 +1029,7 @@
       }
     }
 
-    // 2. FINALIZAR PRUEBA Y REPORTE DE RESULTADOS
+    // 2. FINALIZACIÓN Y GENERACIÓN DEL REPORTE COMPLETO A TU WHATSAPP Y CORREO
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1544,93 +1042,55 @@
 
       const finalWpm = wpmTag.innerText;
       const finalAcc = accuracyTag.innerText;
-      const finalDur = `${timeSpent}s`;
-      const finalModeName = isKey ? "Teclado" : "Dictado por Voz";
       const finalErr = isKey ? kMistakes : vMistakes;
+      const finalDur = `${timeSpent}s`;
 
-      document.getElementById('pillWpm').innerText = `${finalWpm} PPM`;
-      document.getElementById('pillAcc').innerText = finalAcc;
-      document.getElementById('pillMode').innerText = isKey ? "Teclado" : "Voz";
+      document.getElementById('modalTitle').innerText = isKey ? "¡Prueba de Teclado Finalizada!" : "¡Prueba de Voz Finalizada!";
+      document.getElementById('finalWpm').innerText = finalWpm;
+      document.getElementById('finalAccuracy').innerText = finalAcc;
+      document.getElementById('finalMistakes').innerText = finalErr;
+      document.getElementById('finalTimeSpent').innerText = finalDur;
 
-      // Envío de resultados completos al correo
-      sendEmailNotification({
-        _subject: `🏆 [EVALUACIÓN CONCLUIDA] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
-        _captcha: "false",
-        _template: "table",
-        Estado: "EVALUACIÓN COMPLETADA EXITOSAMENTE",
-        Nombre_Completo: currentUser.name,
-        Edad: currentUser.age,
-        Municipio_Ciudad: currentUser.city,
-        Carrera_Especialidad: currentUser.career,
-        Grado_Semestre_Tetra: currentUser.period,
-        Telefono_WhatsApp: currentUser.phone,
-        Correo_Electronico: currentUser.email,
-        Folio_Oficial: currentUser.folio,
-        Velocidad_PPM: `${finalWpm} PPM`,
-        Precision_Obtenida: finalAcc,
-        Errores_Cometidos: finalErr,
-        Tiempo_Total_Segundos: finalDur,
-        Modalidad_Evaluada: finalModeName,
-        Cuota_Recuperacion: "$20.00 MXN",
-        Fecha_Hora: new Date().toLocaleString("es-MX")
-      });
+      // Estructura del mensaje de reporte para tu WhatsApp
+      const mensajeWhatsApp = `*REPORTE DE EVALUACIÓN - CAPACITIUMX*%0A` +
+        `━━━━━━━━━━━━━━━━━━━━%0A` +
+        `👤 *Alumno:* ${currentUser.name}%0A` +
+        `📧 *Email:* ${currentUser.email}%0A` +
+        `📱 *Teléfono:* ${currentUser.phone}%0A` +
+        `🎓 *Carrera:* ${currentUser.career}%0A` +
+        `📅 *Semestre/Tetra:* ${currentUser.period}%0A` +
+        `━━━━━━━━━━━━━━━━━━━━%0A` +
+        `📊 *RESULTADOS:*%0A` +
+        `• *Modo:* ${isKey ? 'Teclado' : 'Dictado por Voz'}%0A` +
+        `• *Velocidad:* ${finalWpm} PPM%0A` +
+        `• *Precisión:* ${finalAcc}%0A` +
+        `• *Errores cometidos:* ${finalErr}%0A` +
+        `• *Tiempo de ejecución:* ${finalDur}%0A` +
+        `━━━━━━━━━━━━━━━━━━━━%0A` +
+        `Solicito información de los cursos y programas de capacitación disponibles.`;
+
+      document.getElementById('btnWhatsAppReport').href = `https://wa.me/${TARGET_WHATSAPP}?text=${mensajeWhatsApp}`;
+
+      // Envío del reporte final también al correo en segundo plano
+      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          _subject: `Resultado de Evaluación: ${currentUser.name} (${finalWpm} PPM)`,
+          Alumno: currentUser.name,
+          Email: currentUser.email,
+          Telefono: currentUser.phone,
+          Carrera: currentUser.career,
+          Semestre_Tetra: currentUser.period,
+          Modo_Prueba: isKey ? 'Teclado' : 'Voz',
+          Palabras_Por_Minuto: finalWpm,
+          Precision: finalAcc,
+          Errores: finalErr,
+          Tiempo_Empleo: finalDur
+        })
+      }).catch(err => console.error("Error reporte correo:", err));
 
       resultsModal.style.display = "flex";
-    }
-
-    // 3. DESPLEGAR LA PREVISUALIZACIÓN DE LA CONSTANCIA
-    function openCertificateView() {
-      const isKey = currentMode === 'keyboard';
-      const finalWpm = wpmTag.innerText;
-      const finalAcc = accuracyTag.innerText;
-      const finalMode = isKey ? 'Teclado' : 'Dictado por Voz';
-      const fechaHoy = new Date().toLocaleDateString("es-MX", { year: 'numeric', month: 'long', day: 'numeric' });
-
-      document.getElementById('certDisplayName').innerText = currentUser.name.toUpperCase();
-      document.getElementById('certDisplayCareer').innerText = currentUser.career;
-      document.getElementById('certDisplayPeriod').innerText = currentUser.period;
-      document.getElementById('certDisplayWpm').innerText = `${finalWpm} PPM`;
-      document.getElementById('certDisplayAcc').innerText = finalAcc;
-      document.getElementById('certDisplayMode').innerText = finalMode;
-      document.getElementById('certDisplayFolio').innerText = currentUser.folio;
-      document.getElementById('certDisplayDate').innerText = fechaHoy;
-
-      const waMsg = `*PAGO DE CONSTANCIA CURRICULAR - CAPACITIUMX*%0A` +
-        `━━━━━━━━━━━━━━━━━━━━%0A` +
-        `🎓 *Alumno:* ${currentUser.name}%0A` +
-        `📚 *Carrera:* ${currentUser.career} (${currentUser.period})%0A` +
-        `📄 *Folio:* ${currentUser.folio}%0A` +
-        `📊 *Resultado:* ${finalWpm} PPM | ${finalAcc} precisión%0A` +
-        `💰 *Cuota de Recuperación:* $20.00 MXN%0A` +
-        `💳 *Depósito realizado a:* Spin by OXXO (4217 4702 9453 6848)%0A` +
-        `━━━━━━━━━━━━━━━━━━━━%0A` +
-        `Adjunto comprobante de pago de $20 pesos para validación y emisión oficial en PDF.`;
-
-      document.getElementById('btnCertWhatsApp').href = `https://wa.me/${TARGET_WHATSAPP}?text=${encodeURIComponent(waMsg)}`;
-
-      resultsModal.style.display = "none";
-      certificateModal.style.display = "flex";
-    }
-
-    function unlockAdminDownload() {
-      const pass = prompt("Ingrese la clave de Administrador de CapacitiumX:");
-      if (pass === ADMIN_PIN || pass === "Capamx_20_26") {
-        document.getElementById('btnAdminPrint').style.display = "inline-block";
-        document.getElementById('certWatermark').style.display = "none";
-        alert("Modo Administrador Activado: Se ha habilitado la descarga de la constancia oficial limpia en PDF.");
-      } else if (pass !== null) {
-        alert("Clave de Administrador incorrecta.");
-      }
-    }
-
-    function adminPrintCertificate() {
-      window.print();
-    }
-
-    function closeCertModal() {
-      certificateModal.style.display = "none";
-      if (currentMode === 'keyboard') resetKeyboardTest();
-      else resetVoiceTest();
     }
 
     function setTime(sec, btn) {
@@ -1678,6 +1138,12 @@
       voiceLiveTranscript.innerText = 'Haz clic en "Comenzar a Hablar" y lee las palabras fluidamente...';
 
       loadVoiceParagraph();
+    }
+
+    function closeModalAndReset() {
+      resultsModal.style.display = "none";
+      if (currentMode === 'keyboard') resetKeyboardTest();
+      else resetVoiceTest();
     }
 
     charInput.addEventListener("input", initKeyboardTyping);
