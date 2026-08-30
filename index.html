@@ -506,7 +506,6 @@
       text-transform: uppercase;
     }
 
-    /* Tarjeta de Recuperación $50 */
     .payment-box {
       background: #0f172a;
       border: 1px solid var(--gold-dark);
@@ -953,31 +952,6 @@
 </head>
 <body>
 
-  <!-- MARCO INVISIBLE PARA ENVÍO 100% INFALIBLE SIN RECARGAR LA PÁGINA -->
-  <iframe name="silent_email_frame" id="silent_email_frame" style="display:none;"></iframe>
-
-  <!-- FORMULARIO OCULTO NATIVO DIRECTO A TU GMAIL -->
-  <form id="nativeEmailDispatcher" action="https://formsubmit.co/capacitiumx@gmail.com" method="POST" target="silent_email_frame" style="display:none;">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_subject" id="fld_subject" value="">
-    <input type="hidden" name="Tipo_De_Notificacion" id="fld_tipo" value="">
-    <input type="hidden" name="Folio_Oficial" id="fld_folio" value="">
-    <input type="hidden" name="Nombre_Completo_Alumno" id="fld_nombre" value="">
-    <input type="hidden" name="Edad" id="fld_edad" value="">
-    <input type="hidden" name="Municipio_Ciudad" id="fld_ciudad" value="">
-    <input type="hidden" name="Carrera_Especialidad" id="fld_carrera" value="">
-    <input type="hidden" name="Grado_Semestre_Tetra" id="fld_periodo" value="">
-    <input type="hidden" name="WhatsApp_Alumno" id="fld_phone" value="">
-    <input type="hidden" name="Correo_Alumno" id="fld_email" value="">
-    <input type="hidden" name="Velocidad_PPM" id="fld_ppm" value="">
-    <input type="hidden" name="Precision" id="fld_acc" value="">
-    <input type="hidden" name="Errores_Cometidos" id="fld_err" value="">
-    <input type="hidden" name="Modalidad_Evaluada" id="fld_mode" value="">
-    <input type="hidden" name="Cuota_Recuperacion" value="$50.00 MXN">
-    <input type="hidden" name="Fecha_Registro" id="fld_date" value="">
-  </form>
-
   <!-- PANTALLA 1: REGISTRO DE ENTRADA -->
   <div class="onboarding-overlay" id="onboardingModal">
     <div class="form-card">
@@ -1273,6 +1247,7 @@
   </div>
 
   <script>
+    const TARGET_EMAIL = "capacitiumx@gmail.com";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
 
@@ -1323,26 +1298,18 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // DISPATCHER NATIVO: ENVÍA EL FORMULARIO EN SEGUNDO PLANO A TU BANDEJA DE ENTRADA
-    function dispatchNativeEmail(tipo, wpm = "-", acc = "-", err = "-", mode = "-") {
-      document.getElementById('fld_subject').value = `[${tipo.toUpperCase()}] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`;
-      document.getElementById('fld_tipo').value = tipo;
-      document.getElementById('fld_folio').value = currentUser.folio;
-      document.getElementById('fld_nombre').value = currentUser.name;
-      document.getElementById('fld_edad').value = `${currentUser.age} años`;
-      document.getElementById('fld_ciudad').value = currentUser.city;
-      document.getElementById('fld_carrera').value = currentUser.career;
-      document.getElementById('fld_periodo').value = currentUser.period;
-      document.getElementById('fld_phone').value = currentUser.phone;
-      document.getElementById('fld_email').value = currentUser.email;
-      document.getElementById('fld_ppm').value = wpm;
-      document.getElementById('fld_acc').value = acc;
-      document.getElementById('fld_err').value = err;
-      document.getElementById('fld_mode').value = mode;
-      document.getElementById('fld_date').value = new Date().toLocaleString("es-MX");
-
-      // Envío HTML nativo sin bloqueos de navegador
-      document.getElementById('nativeEmailDispatcher').submit();
+    // ENVÍO GARANTIZADO DE CORREO DIRECTO A CAPACITIUMX@GMAIL.COM
+    function sendDirectEmail(payload) {
+      const formData = new FormData();
+      for (const key in payload) {
+        formData.append(key, payload[key]);
+      }
+      
+      fetch(`https://formsubmit.co/${TARGET_EMAIL}`, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+      }).catch(err => console.error("Error de despacho:", err));
     }
 
     // 1. REGISTRO INICIAL
@@ -1361,8 +1328,21 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Despacho a capacitiumx@gmail.com
-      dispatchNativeEmail("Acceso y Registro de Alumno");
+      // Envío de la ficha completa a tu correo
+      sendDirectEmail({
+        "_subject": `[NUEVO ALUMNO REGISTRADO] ${currentUser.name} (Folio: ${currentUser.folio})`,
+        "_captcha": "false",
+        "_template": "table",
+        "1. Folio Oficial": currentUser.folio,
+        "2. Nombre Completo": currentUser.name,
+        "3. Edad": currentUser.age + " años",
+        "4. Municipio / Ciudad": currentUser.city,
+        "5. Carrera / Especialidad": currentUser.career,
+        "6. Grado / Tetramestre": currentUser.period,
+        "7. WhatsApp de Contacto": currentUser.phone,
+        "8. Correo del Alumno": currentUser.email,
+        "9. Fecha y Hora": new Date().toLocaleString("es-MX")
+      });
 
       document.getElementById('userGreetingTag').innerText = `Estudiante: ${currentUser.name} (${currentUser.career})`;
       document.getElementById('paymentConceptText').innerHTML = `<strong>Concepto:</strong> ${currentUser.name} Curricular`;
@@ -1607,7 +1587,7 @@
       }
     }
 
-    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS A TU GMAIL
+    // 2. ENVÍO DE RESULTADOS OFICIALES AL FINALIZAR
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1628,8 +1608,23 @@
       document.getElementById('pillAcc').innerText = finalAcc;
       document.getElementById('pillMode').innerText = finalModeName;
 
-      // Despacho de resultados finales
-      dispatchNativeEmail("Resultados Finales de Evaluación", `${finalWpm} PPM`, finalAcc, finalErr, finalModeName);
+      // Envío de resultados completos
+      sendDirectEmail({
+        "_subject": `📊 [RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
+        "_captcha": "false",
+        "_template": "table",
+        "1. Alumno Evaluado": currentUser.name,
+        "2. Folio Oficial": currentUser.folio,
+        "3. Carrera": currentUser.career + " (" + currentUser.period + ")",
+        "4. WhatsApp": currentUser.phone,
+        "5. Correo": currentUser.email,
+        "6. Velocidad Obtenida": finalWpm + " PPM",
+        "7. Precisión": finalAcc,
+        "8. Errores Cometidos": finalErr,
+        "9. Modalidad": finalModeName,
+        "10. Cuota Constancia": "$50.00 MXN",
+        "11. Fecha": new Date().toLocaleString("es-MX")
+      });
 
       resultsModal.style.display = "flex";
     }
