@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CapacitiumX - Certificación en Agilidad Mecanográfica y Comunicación Digital</title>
+  <title>CapacitiumX - Evaluación y Emisión de Constancia Curricular</title>
   <style>
     :root {
       --bg: #0b0f19;
@@ -40,7 +40,7 @@
       padding: 1.5rem;
     }
 
-    /* PANTALLA 1: REGISTRO DE ACCESO */
+    /* PANTALLA 1: REGISTRO DE ENTRADA */
     .onboarding-overlay {
       display: flex;
       position: fixed;
@@ -506,7 +506,6 @@
       text-transform: uppercase;
     }
 
-    /* Tarjeta de Recuperación $50 */
     .payment-box {
       background: #0f172a;
       border: 1px solid var(--gold-dark);
@@ -582,7 +581,7 @@
       opacity: 0.9;
     }
 
-    /* PANTALLA 3: PREVISUALIZACIÓN DE CONSTANCIA */
+    /* PANTALLA 3: CONSTANCIA OFICIAL */
     #certificateModal {
       display: none;
       position: fixed;
@@ -750,6 +749,7 @@
       align-items: center;
     }
 
+    /* Caja de firma: transparente en previsualización de alumno, visible al cargar imagen en Admin */
     .cert-signature-box {
       height: 95px;
       width: 100%;
@@ -958,6 +958,7 @@
     <div class="form-card">
       <div class="form-header">
         <div class="app-logo-badge">
+          <!-- Logo Oficial CapacitiumX Vectorial Embebido -->
           <svg class="logo-vector" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="cpxLogoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1161,6 +1162,7 @@
         <div class="cert-content">
           <div class="cert-header">
             <div class="cert-logo-container">
+              <!-- Logo Oficial en Constancia -->
               <svg class="logo-vector" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="cpxLogoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1215,6 +1217,7 @@
             </div>
           </div>
 
+          <!-- Pie de Constancia: Línea limpia con imagen de firma cargable por el Administrador -->
           <div class="cert-footer">
             <div class="cert-sign-col">
               <div class="cert-signature-box">
@@ -1233,12 +1236,14 @@
         </div>
       </div>
 
+      <!-- Barra de Acciones del Alumno + Botones de Administrador -->
       <div class="cert-action-bar">
         <a id="btnCertWhatsApp" href="#" target="_blank" class="btn-wa-confirm">
           📲 Enviar Comprobante de $50 a WhatsApp
         </a>
         <button class="btn-close-cert" onclick="closeCertModal()">Volver a la Prueba</button>
         
+        <!-- Controles exclusivos de Administrador -->
         <input type="file" id="adminSigFileInput" accept="image/*" style="display:none;" onchange="handleSignatureFileUpload(event)">
         <button class="admin-unlock-btn" id="btnAdminUnlock" onclick="unlockAdminDownload()">🔒 Modo Admin</button>
         <button class="btn-admin-load-sig" id="btnAdminLoadSig" onclick="document.getElementById('adminSigFileInput').click()">🖋️ Cargar Imagen de Mi Firma</button>
@@ -1299,7 +1304,6 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL (ENVÍO DIRECTO AJAX CON FORMATO JSON)
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1315,26 +1319,20 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Envío de la ficha de registro completa a tu correo
       fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          _subject: `🎓 [NUEVO ALUMNO] ${currentUser.name} (Folio: ${currentUser.folio})`,
-          _captcha: "false",
-          _template: "table",
-          "Folio Asignado": currentUser.folio,
-          "Nombre Completo": currentUser.name,
-          "Edad": currentUser.age + " años",
-          "Municipio / Ciudad": currentUser.city,
-          "Carrera o Especialidad": currentUser.career,
-          "Grado / Semestre / Tetra": currentUser.period,
-          "WhatsApp": currentUser.phone,
-          "Correo Electrónico": currentUser.email,
-          "Fecha y Hora": new Date().toLocaleString("es-MX")
+          _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
+          Nombre_Completo: currentUser.name,
+          Edad: currentUser.age,
+          Municipio_Ciudad: currentUser.city,
+          Carrera_Especialidad: currentUser.career,
+          Grado_Semestre_Tetra: currentUser.period,
+          Telefono_WhatsApp: currentUser.phone,
+          Correo_Electronico: currentUser.email,
+          Folio_Asignado: currentUser.folio,
+          Fecha_Registro: new Date().toLocaleString("es-MX")
         })
       }).catch(err => console.error("Error al registrar:", err));
 
@@ -1581,7 +1579,6 @@
       }
     }
 
-    // 2. ENVÍO DE RESULTADOS OFICIALES AL FINALIZAR
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1602,36 +1599,32 @@
       document.getElementById('pillAcc').innerText = finalAcc;
       document.getElementById('pillMode').innerText = finalModeName;
 
-      // Envío de resultados completos en tabla a tu correo
       fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          _subject: `📊 [RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM`,
-          _captcha: "false",
-          _template: "table",
-          "Folio Oficial": currentUser.folio,
-          "Nombre del Alumno": currentUser.name,
-          "Carrera": currentUser.career + " (" + currentUser.period + ")",
-          "WhatsApp": currentUser.phone,
-          "Correo Electrónico": currentUser.email,
-          "Velocidad Obtenida": finalWpm + " PPM",
-          "Precisión": finalAcc,
-          "Errores Cometidos": finalErr,
-          "Tiempo Empleado": finalDur,
-          "Modalidad Evaluada": finalModeName,
-          "Cuota de Constancia": "$50.00 MXN",
-          "Fecha y Hora": new Date().toLocaleString("es-MX")
+          _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
+          Nombre_Completo: currentUser.name,
+          Edad: currentUser.age,
+          Municipio_Ciudad: currentUser.city,
+          Carrera_Especialidad: currentUser.career,
+          Grado_Semestre_Tetra: currentUser.period,
+          Telefono_WhatsApp: currentUser.phone,
+          Correo_Electronico: currentUser.email,
+          Folio_Oficial: currentUser.folio,
+          Velocidad_PPM: finalWpm,
+          Precision: finalAcc,
+          Errores_Cometidos: finalErr,
+          Tiempo_Empleado: finalDur,
+          Modalidad: finalModeName,
+          Cuota_Constancia: "$50.00 MXN",
+          Fecha_Hora: new Date().toLocaleString("es-MX")
         })
       }).catch(err => console.error("Error al sincronizar resultados:", err));
 
       resultsModal.style.display = "flex";
     }
 
-    // 3. PREVISUALIZACIÓN DE CONSTANCIA
     function openCertificateView() {
       const isKey = currentMode === 'keyboard';
       const finalWpm = wpmTag.innerText;
@@ -1665,7 +1658,6 @@
       certificateModal.style.display = "flex";
     }
 
-    // 4. MODO ADMINISTRADOR (DESBLOQUEO Y CARGA DE FIRMA)
     function unlockAdminDownload() {
       const pass = prompt("Ingrese la clave de Administrador de CapacitiumX:");
       if (pass === ADMIN_PIN || pass === "Capamx_20_26") {
