@@ -1249,7 +1249,7 @@
   </div>
 
   <script>
-    const FORMSUBMIT_URL = "https://formsubmit.co/ajax/capacitiumx@gmail.com";
+    const FORMSUBMIT_URL = "https://formsubmit.co/ajax/4c322726c52f54ca17bb8560bbb20a8e";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
     const GITHUB_PAGE_URL = "https://capacitiumx.github.io/velocidad-de-escritura-y-habla/";
@@ -1301,7 +1301,7 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL
+    // 1. REGISTRO INICIAL CON RESUMEN EN TEXTO PLANO
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1317,7 +1317,8 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Envío AJAX directo a capacitiumx@gmail.com
+      const resumenSeparado = `${currentUser.name}, ${currentUser.age} años, ${currentUser.city}, ${currentUser.career}, ${currentUser.period}, WA: ${currentUser.phone}, ${currentUser.email}, Folio: ${currentUser.folio}`;
+
       fetch(FORMSUBMIT_URL, {
         method: "POST",
         headers: { 
@@ -1336,12 +1337,12 @@
           Telefono_WhatsApp: currentUser.phone,
           Correo_Electronico: currentUser.email,
           Folio_Asignado: currentUser.folio,
-          Plataforma_Oficial: GITHUB_PAGE_URL,
+          Resumen_Separado_Por_Comas: resumenSeparado,
           Fecha_Registro: new Date().toLocaleString("es-MX")
         })
       })
       .then(response => response.json())
-      .then(data => console.log("Registro enviado con éxito:", data))
+      .then(data => console.log("Registro inicial enviado:", data))
       .catch(err => console.error("Error al registrar:", err));
 
       document.getElementById('userGreetingTag').innerText = `Estudiante: ${currentUser.name} (${currentUser.career})`;
@@ -1587,7 +1588,7 @@
       }
     }
 
-    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS
+    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS CON RESUMEN EN TEXTO
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1608,7 +1609,8 @@
       document.getElementById('pillAcc').innerText = finalAcc;
       document.getElementById('pillMode').innerText = finalModeName;
 
-      // Envío de resultados a capacitiumx@gmail.com
+      const resumenFinal = `${currentUser.name}, ${currentUser.age} años, ${currentUser.city}, ${currentUser.career}, ${currentUser.period}, WA: ${currentUser.phone}, ${currentUser.email}, Folio: ${currentUser.folio}, PPM: ${finalWpm}, Precisión: ${finalAcc}`;
+
       fetch(FORMSUBMIT_URL, {
         method: "POST",
         headers: { 
@@ -1633,12 +1635,12 @@
           Tiempo_Empleado: finalDur,
           Modalidad: finalModeName,
           Cuota_Constancia: "$50.00 MXN",
-          Plataforma_Oficial: GITHUB_PAGE_URL,
+          Resumen_Separado_Por_Comas: resumenFinal,
           Fecha_Hora: new Date().toLocaleString("es-MX")
         })
       })
       .then(response => response.json())
-      .then(data => console.log("Resultados enviados con éxito:", data))
+      .then(data => console.log("Resultados finales enviados:", data))
       .catch(err => console.error("Error al sincronizar resultados:", err));
 
       resultsModal.style.display = "flex";
