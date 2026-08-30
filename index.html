@@ -40,7 +40,6 @@
       padding: 1.5rem;
     }
 
-    /* PANTALLA 1: REGISTRO OBLIGATORIO DE ACCESO */
     .onboarding-overlay {
       display: flex;
       position: fixed;
@@ -150,7 +149,6 @@
       opacity: 0.9;
     }
 
-    /* APLICACIÓN PRINCIPAL DE EVALUACIÓN */
     .container {
       width: 100%;
       max-width: 920px;
@@ -442,7 +440,6 @@
       100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
     }
 
-    /* PANTALLA 2: RESULTADOS */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -581,7 +578,6 @@
       opacity: 0.9;
     }
 
-    /* PANTALLA 3: PREVISUALIZACIÓN DE CONSTANCIA */
     #certificateModal {
       display: none;
       position: fixed;
@@ -952,7 +948,6 @@
 </head>
 <body>
 
-  <!-- PANTALLA 1: REGISTRO DE ENTRADA -->
   <div class="onboarding-overlay" id="onboardingModal">
     <div class="form-card">
       <div class="form-header">
@@ -1038,7 +1033,6 @@
     </div>
   </div>
 
-  <!-- PANTALLA 2: SIMULADOR DE EVALUACIÓN -->
   <div class="container" id="mainTestContainer">
     <header>
       <div class="user-tag" id="userGreetingTag">Bienvenido a CapacitiumX</div>
@@ -1110,7 +1104,6 @@
     </div>
   </div>
 
-  <!-- PANTALLA 3: RESULTADOS Y CUOTA $50 -->
   <div class="modal-overlay" id="resultsModal">
     <div class="modal-card">
       <h2 class="modal-title">¡Evaluación Concluida!</h2>
@@ -1149,7 +1142,6 @@
     </div>
   </div>
 
-  <!-- PANTALLA 4: PREVISUALIZACIÓN DE CONSTANCIA -->
   <div id="certificateModal">
     <div class="cert-wrapper">
       <div class="cert-card" id="printableCert">
@@ -1247,7 +1239,10 @@
   </div>
 
   <script>
-    const TARGET_EMAIL = "capacitiumx@gmail.com";
+    // URL de tu Web App de Google Apps Script (Reemplaza con tu enlace del Paso 1 si deseas guardar en Sheets)
+    // O déjalo con el endpoint de respaldo configurado:
+    const GOOGLE_SCRIPT_URL = ""; 
+    const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/4c322726c52f54ca17bb8560bbb20a8e";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
 
@@ -1298,21 +1293,24 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // ENVÍO GARANTIZADO DE CORREO DIRECTO A CAPACITIUMX@GMAIL.COM
-    function sendDirectEmail(payload) {
-      const formData = new FormData();
-      for (const key in payload) {
-        formData.append(key, payload[key]);
+    // Función universal para enviar datos (a Google Apps Script o FormSubmit)
+    function sendPayload(payload) {
+      if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.startsWith("http")) {
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        }).catch(err => console.error("Error Google Script:", err));
+      } else {
+        fetch(FORMSUBMIT_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(payload)
+        }).catch(err => console.error("Error FormSubmit:", err));
       }
-      
-      fetch(`https://formsubmit.co/${TARGET_EMAIL}`, {
-        method: "POST",
-        body: formData,
-        mode: "no-cors"
-      }).catch(err => console.error("Error de despacho:", err));
     }
 
-    // 1. REGISTRO INICIAL
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1328,20 +1326,20 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Envío de la ficha completa a tu correo
-      sendDirectEmail({
-        "_subject": `[NUEVO ALUMNO REGISTRADO] ${currentUser.name} (Folio: ${currentUser.folio})`,
-        "_captcha": "false",
-        "_template": "table",
-        "1. Folio Oficial": currentUser.folio,
-        "2. Nombre Completo": currentUser.name,
-        "3. Edad": currentUser.age + " años",
-        "4. Municipio / Ciudad": currentUser.city,
-        "5. Carrera / Especialidad": currentUser.career,
-        "6. Grado / Tetramestre": currentUser.period,
-        "7. WhatsApp de Contacto": currentUser.phone,
-        "8. Correo del Alumno": currentUser.email,
-        "9. Fecha y Hora": new Date().toLocaleString("es-MX")
+      sendPayload({
+        _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
+        _captcha: "false",
+        _template: "table",
+        tipo: "Acceso Inicial",
+        fecha: new Date().toLocaleString("es-MX"),
+        folio: currentUser.folio,
+        nombre: currentUser.name,
+        edad: currentUser.age,
+        municipio: currentUser.city,
+        carrera: currentUser.career,
+        periodo: currentUser.period,
+        whatsapp: currentUser.phone,
+        email: currentUser.email
       });
 
       document.getElementById('userGreetingTag').innerText = `Estudiante: ${currentUser.name} (${currentUser.career})`;
@@ -1587,7 +1585,6 @@
       }
     }
 
-    // 2. ENVÍO DE RESULTADOS OFICIALES AL FINALIZAR
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1608,28 +1605,31 @@
       document.getElementById('pillAcc').innerText = finalAcc;
       document.getElementById('pillMode').innerText = finalModeName;
 
-      // Envío de resultados completos
-      sendDirectEmail({
-        "_subject": `📊 [RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
-        "_captcha": "false",
-        "_template": "table",
-        "1. Alumno Evaluado": currentUser.name,
-        "2. Folio Oficial": currentUser.folio,
-        "3. Carrera": currentUser.career + " (" + currentUser.period + ")",
-        "4. WhatsApp": currentUser.phone,
-        "5. Correo": currentUser.email,
-        "6. Velocidad Obtenida": finalWpm + " PPM",
-        "7. Precisión": finalAcc,
-        "8. Errores Cometidos": finalErr,
-        "9. Modalidad": finalModeName,
-        "10. Cuota Constancia": "$50.00 MXN",
-        "11. Fecha": new Date().toLocaleString("es-MX")
+      sendPayload({
+        _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
+        _captcha: "false",
+        _template: "table",
+        tipo: "Resultado Final",
+        fecha: new Date().toLocaleString("es-MX"),
+        folio: currentUser.folio,
+        nombre: currentUser.name,
+        edad: currentUser.age,
+        municipio: currentUser.city,
+        carrera: currentUser.career,
+        periodo: currentUser.period,
+        whatsapp: currentUser.phone,
+        email: currentUser.email,
+        ppm: finalWpm,
+        precision: finalAcc,
+        errores: finalErr,
+        duracion: finalDur,
+        modalidad: finalModeName,
+        cuota: "$50.00 MXN"
       });
 
       resultsModal.style.display = "flex";
     }
 
-    // 3. PREVISUALIZACIÓN DE CONSTANCIA
     function openCertificateView() {
       const isKey = currentMode === 'keyboard';
       const finalWpm = wpmTag.innerText;
@@ -1663,7 +1663,6 @@
       certificateModal.style.display = "flex";
     }
 
-    // 4. MODO ADMINISTRADOR (DESBLOQUEO Y CARGA DE FIRMA)
     function unlockAdminDownload() {
       const pass = prompt("Ingrese la clave de Administrador de CapacitiumX:");
       if (pass === ADMIN_PIN || pass === "Capamx_20_26") {
