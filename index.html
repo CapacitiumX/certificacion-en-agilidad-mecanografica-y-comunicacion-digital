@@ -749,19 +749,22 @@
       align-items: center;
     }
 
-    /* Firma Exacta e Idéntica */
+    /* Caja y renderizado completo de la firma */
     .cert-signature-box {
-      height: 95px;
+      height: 110px;
+      width: 100%;
       display: flex;
       align-items: flex-end;
       justify-content: center;
       margin-bottom: 2px;
+      overflow: visible;
     }
 
     .cert-signature-svg {
-      width: 60px;
-      height: 90px;
+      width: 85px;
+      height: 110px;
       display: block;
+      overflow: visible;
     }
 
     .cert-sign-line {
@@ -949,9 +952,7 @@
               </linearGradient>
             </defs>
             <rect width="200" height="200" rx="20" fill="url(#cpxLogoGrad1)"/>
-            <!-- Escudo con alas -->
             <path d="M48 38 H152 V75 H176 V125 H152 V132 L100 168 L48 132 V125 H24 V75 H48 Z" stroke="#ffffff" stroke-width="4.5" fill="none"/>
-            <!-- Monitor -->
             <rect x="84" y="44" width="32" height="22" rx="2.5" stroke="#ffffff" stroke-width="2" fill="none"/>
             <rect x="87" y="47" width="13" height="9" stroke="#ffffff" stroke-width="1.2" fill="none"/>
             <path d="M92 50 L95 55 L93 55 L95 58 L93.5 58.5 L91.5 55.5 L90 56.5 Z" fill="#ffffff"/>
@@ -959,10 +960,8 @@
             <circle cx="107" cy="57" r="1.5" fill="#ffffff"/>
             <path d="M104.5 61 C104.5 59.5, 109.5 59.5, 109.5 61 Z" fill="#ffffff"/>
             <path d="M96 66 L104 66 M100 66 L100 70 M92 70 L108 70" stroke="#ffffff" stroke-width="2"/>
-            <!-- Barra CAPACITIUMX -->
             <rect x="22" y="74" width="156" height="52" fill="#0056b3" stroke="#ffffff" stroke-width="4.5"/>
             <text x="100" y="110" font-family="'Segoe UI', Impact, Arial Black, sans-serif" font-weight="900" font-size="20.5" fill="#ffffff" text-anchor="middle" letter-spacing="1">CAPACITIUMX</text>
-            <!-- Cursos Online -->
             <line x1="56" y1="135" x2="144" y2="135" stroke="#ffffff" stroke-width="2"/>
             <text x="100" y="148" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#ffffff" text-anchor="middle">Cursos Online</text>
             <line x1="56" y1="154" x2="144" y2="154" stroke="#ffffff" stroke-width="2"/>
@@ -1202,17 +1201,22 @@
             </div>
           </div>
 
-          <!-- Firma Oficial Idéntica Vectorizada Embebida -->
+          <!-- Firma Oficial Exacta, Completa y Nítida -->
           <div class="cert-footer">
             <div class="cert-sign-col">
               <div class="cert-signature-box">
-                <svg class="cert-signature-svg" viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Tallo vertical largo con bucle inferior ovalado hacia la izquierda y arriba -->
-                  <path d="M54 12 C52 25, 52 50, 52 75 C52 95, 52 112, 53 125 C53 133, 49 137, 44 135 C38 132, 36 122, 38 108 C40 92, 45 74, 49 55 C50 51, 52 48, 54 48 C55 48, 56 60, 55 78 C54 95, 50 115, 47 125 C45 130, 48 132, 50 128 C53 122, 56 102, 56 75 C56 50, 56 25, 54 12 Z" fill="#000000"/>
-                  <!-- Lazo / bucle medio izquierdo -->
-                  <path d="M51 52 C45 57, 40 65, 41 73 C42 80, 47 81, 51 75 C53 71, 53 62, 51 52 Z" fill="#000000"/>
-                  <!-- Trazo cruzado derecho característico -->
-                  <path d="M55 58 C59 55, 63 56, 64 61 C65 65, 61 68, 57 70 C59 73, 62 76, 61 79 C59 80, 57 76, 56 71 Z" fill="#000000"/>
+                <svg class="cert-signature-svg" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Tallo vertical principal con remate superior y descenso continuo -->
+                  <path d="M62 16 C64 16 66 24 66 42 C66 62 64 85 64 112 C64 138 63 158 58 168 C54 174 46 172 42 162 C37 150 39 130 46 108 C51 86 58 62 62 38 C63 28 63 20 62 16 Z" fill="#000000"/>
+                  
+                  <!-- Bucle inferior cerrado que asciende por la izquierda -->
+                  <path d="M42 162 C35 148 37 125 44 104 C47 94 51 84 55 78 C56 81 53 94 49 106 C45 124 44 144 48 155 C50 160 53 160 56 152 C59 144 61 127 61 110 L65 110 C65 136 63 158 58 168 C53 176 45 172 42 162 Z" fill="#000000"/>
+                  
+                  <!-- Nudo/bucle medio izquierdo característico -->
+                  <path d="M61 76 C53 80 46 90 47 102 C48 112 56 114 61 106 C64 101 63 88 61 76 Z M54 88 C57 92 57 100 55 103 C52 104 50 100 50 94 C50 90 52 87 54 88 Z" fill="#000000"/>
+                  
+                  <!-- Trazo derecho de cruce / rasgo tipo r -->
+                  <path d="M66 86 C71 82 77 84 78 90 C79 96 74 100 69 103 C71 107 75 111 73 115 C71 117 68 113 66 106 C65 100 65 92 66 86 Z" fill="#000000"/>
                 </svg>
               </div>
               <div class="cert-sign-line">Mtro. Rafael Garza Hinojosa</div>
