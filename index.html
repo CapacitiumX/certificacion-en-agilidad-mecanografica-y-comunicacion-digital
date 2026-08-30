@@ -79,12 +79,11 @@
       margin-bottom: 0.8rem;
     }
 
-    .app-logo-img, .app-logo-svg {
+    .logo-vector {
       width: 85px;
       height: 85px;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 136, 255, 0.3);
-      object-fit: contain;
+      box-shadow: 0 6px 18px rgba(0, 150, 255, 0.35);
     }
 
     .form-header h2 {
@@ -667,7 +666,7 @@
       text-transform: uppercase;
       letter-spacing: 2.5px;
       color: #64748b;
-      margin-top: 0.3rem;
+      margin-top: 0.4rem;
       font-weight: 700;
     }
 
@@ -750,7 +749,7 @@
       align-items: center;
     }
 
-    /* Firma Oficial Idéntica */
+    /* Firma Exacta e Idéntica */
     .cert-signature-box {
       height: 95px;
       display: flex;
@@ -759,11 +758,9 @@
       margin-bottom: 2px;
     }
 
-    .cert-signature-img {
-      max-height: 90px;
-      width: auto;
-      object-fit: contain;
-      mix-blend-mode: multiply;
+    .cert-signature-svg {
+      width: 60px;
+      height: 90px;
       display: block;
     }
 
@@ -793,9 +790,9 @@
 
     .cert-folio-col {
       text-align: right;
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       color: #64748b;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .cert-folio-col strong {
@@ -942,7 +939,34 @@
     <div class="form-card">
       <div class="form-header">
         <div class="app-logo-badge">
-          <img src="logo capas.jpg" alt="CapacitiumX" class="app-logo-img">
+          <!-- Logo Oficial CapacitiumX Vectorial Embebido -->
+          <svg class="logo-vector" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="cpxLogoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00d2ff"/>
+                <stop offset="50%" stop-color="#0091ff"/>
+                <stop offset="100%" stop-color="#0047cc"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" rx="20" fill="url(#cpxLogoGrad1)"/>
+            <!-- Escudo con alas -->
+            <path d="M48 38 H152 V75 H176 V125 H152 V132 L100 168 L48 132 V125 H24 V75 H48 Z" stroke="#ffffff" stroke-width="4.5" fill="none"/>
+            <!-- Monitor -->
+            <rect x="84" y="44" width="32" height="22" rx="2.5" stroke="#ffffff" stroke-width="2" fill="none"/>
+            <rect x="87" y="47" width="13" height="9" stroke="#ffffff" stroke-width="1.2" fill="none"/>
+            <path d="M92 50 L95 55 L93 55 L95 58 L93.5 58.5 L91.5 55.5 L90 56.5 Z" fill="#ffffff"/>
+            <rect x="103" y="54" width="10" height="8" stroke="#ffffff" stroke-width="1.2" fill="none"/>
+            <circle cx="107" cy="57" r="1.5" fill="#ffffff"/>
+            <path d="M104.5 61 C104.5 59.5, 109.5 59.5, 109.5 61 Z" fill="#ffffff"/>
+            <path d="M96 66 L104 66 M100 66 L100 70 M92 70 L108 70" stroke="#ffffff" stroke-width="2"/>
+            <!-- Barra CAPACITIUMX -->
+            <rect x="22" y="74" width="156" height="52" fill="#0056b3" stroke="#ffffff" stroke-width="4.5"/>
+            <text x="100" y="110" font-family="'Segoe UI', Impact, Arial Black, sans-serif" font-weight="900" font-size="20.5" fill="#ffffff" text-anchor="middle" letter-spacing="1">CAPACITIUMX</text>
+            <!-- Cursos Online -->
+            <line x1="56" y1="135" x2="144" y2="135" stroke="#ffffff" stroke-width="2"/>
+            <text x="100" y="148" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#ffffff" text-anchor="middle">Cursos Online</text>
+            <line x1="56" y1="154" x2="144" y2="154" stroke="#ffffff" stroke-width="2"/>
+          </svg>
         </div>
         <h2>Registro de Evaluación</h2>
         <p>Ingresa tus datos completos para habilitar la prueba y expedir tu Constancia con Valor Curricular.</p>
@@ -1123,7 +1147,30 @@
         <div class="cert-content">
           <div class="cert-header">
             <div class="cert-logo-container">
-              <img src="logo capas.jpg" alt="Logo CapacitiumX" class="app-logo-img">
+              <!-- Logo Oficial en Constancia -->
+              <svg class="logo-vector" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="cpxLogoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00d2ff"/>
+                    <stop offset="50%" stop-color="#0091ff"/>
+                    <stop offset="100%" stop-color="#0047cc"/>
+                  </linearGradient>
+                </defs>
+                <rect width="200" height="200" rx="20" fill="url(#cpxLogoGrad2)"/>
+                <path d="M48 38 H152 V75 H176 V125 H152 V132 L100 168 L48 132 V125 H24 V75 H48 Z" stroke="#ffffff" stroke-width="4.5" fill="none"/>
+                <rect x="84" y="44" width="32" height="22" rx="2.5" stroke="#ffffff" stroke-width="2" fill="none"/>
+                <rect x="87" y="47" width="13" height="9" stroke="#ffffff" stroke-width="1.2" fill="none"/>
+                <path d="M92 50 L95 55 L93 55 L95 58 L93.5 58.5 L91.5 55.5 L90 56.5 Z" fill="#ffffff"/>
+                <rect x="103" y="54" width="10" height="8" stroke="#ffffff" stroke-width="1.2" fill="none"/>
+                <circle cx="107" cy="57" r="1.5" fill="#ffffff"/>
+                <path d="M104.5 61 C104.5 59.5, 109.5 59.5, 109.5 61 Z" fill="#ffffff"/>
+                <path d="M96 66 L104 66 M100 66 L100 70 M92 70 L108 70" stroke="#ffffff" stroke-width="2"/>
+                <rect x="22" y="74" width="156" height="52" fill="#0056b3" stroke="#ffffff" stroke-width="4.5"/>
+                <text x="100" y="110" font-family="'Segoe UI', Impact, Arial Black, sans-serif" font-weight="900" font-size="20.5" fill="#ffffff" text-anchor="middle" letter-spacing="1">CAPACITIUMX</text>
+                <line x1="56" y1="135" x2="144" y2="135" stroke="#ffffff" stroke-width="2"/>
+                <text x="100" y="148" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#ffffff" text-anchor="middle">Cursos Online</text>
+                <line x1="56" y1="154" x2="144" y2="154" stroke="#ffffff" stroke-width="2"/>
+              </svg>
             </div>
             <div class="cert-subhead">CENTRO DE CAPACITACIÓN & DESARROLLO ESTRATÉGICO</div>
           </div>
@@ -1155,11 +1202,18 @@
             </div>
           </div>
 
-          <!-- Firma Oficial Idéntica -->
+          <!-- Firma Oficial Idéntica Vectorizada Embebida -->
           <div class="cert-footer">
             <div class="cert-sign-col">
               <div class="cert-signature-box">
-                <img src="firma[4961].jpg" alt="Firma Mtro. Rafael Garza" class="cert-signature-img">
+                <svg class="cert-signature-svg" viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Tallo vertical largo con bucle inferior ovalado hacia la izquierda y arriba -->
+                  <path d="M54 12 C52 25, 52 50, 52 75 C52 95, 52 112, 53 125 C53 133, 49 137, 44 135 C38 132, 36 122, 38 108 C40 92, 45 74, 49 55 C50 51, 52 48, 54 48 C55 48, 56 60, 55 78 C54 95, 50 115, 47 125 C45 130, 48 132, 50 128 C53 122, 56 102, 56 75 C56 50, 56 25, 54 12 Z" fill="#000000"/>
+                  <!-- Lazo / bucle medio izquierdo -->
+                  <path d="M51 52 C45 57, 40 65, 41 73 C42 80, 47 81, 51 75 C53 71, 53 62, 51 52 Z" fill="#000000"/>
+                  <!-- Trazo cruzado derecho característico -->
+                  <path d="M55 58 C59 55, 63 56, 64 61 C65 65, 61 68, 57 70 C59 73, 62 76, 61 79 C59 80, 57 76, 56 71 Z" fill="#000000"/>
+                </svg>
               </div>
               <div class="cert-sign-line">Mtro. Rafael Garza Hinojosa</div>
               <div class="cert-sign-role">Director General CapacitiumX</div>
@@ -1168,7 +1222,7 @@
 
             <div class="cert-folio-col">
               <div><strong>Folio Oficial:</strong> <span id="certDisplayFolio">CPX-2026-0000</span></div>
-              <div><strong>Fecha de Emisión:</strong> <span id="certDisplayDate">30 de Agosto de 2026</span></div>
+              <div><strong>Fecha de Emisión:</strong> <span id="certDisplayDate">30 de agosto de 2026</span></div>
             </div>
           </div>
         </div>
