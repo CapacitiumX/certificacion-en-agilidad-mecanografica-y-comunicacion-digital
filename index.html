@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CapacitiumX - Evaluación y Emisión de Constancia Curricular</title>
+  <title>CapacitiumX - Certificación en Agilidad Mecanográfica y Comunicación Digital</title>
   <style>
     :root {
       --bg: #0b0f19;
@@ -40,7 +40,7 @@
       padding: 1.5rem;
     }
 
-    /* PANTALLA 1: REGISTRO DE ENTRADA */
+    /* PANTALLA 1: REGISTRO OBLIGATORIO DE ACCESO */
     .onboarding-overlay {
       display: flex;
       position: fixed;
@@ -506,6 +506,7 @@
       text-transform: uppercase;
     }
 
+    /* Tarjeta de Recuperación $50 */
     .payment-box {
       background: #0f172a;
       border: 1px solid var(--gold-dark);
@@ -581,7 +582,7 @@
       opacity: 0.9;
     }
 
-    /* PANTALLA 3: CONSTANCIA OFICIAL */
+    /* PANTALLA 3: PREVISUALIZACIÓN DE CONSTANCIA */
     #certificateModal {
       display: none;
       position: fixed;
@@ -749,7 +750,7 @@
       align-items: center;
     }
 
-    /* Firma nítida y con proporción original */
+    /* Caja de firma: limpia y lista para renderizar el archivo del administrador */
     .cert-signature-box {
       height: 95px;
       width: 100%;
@@ -759,10 +760,12 @@
       margin-bottom: 2px;
     }
 
-    .cert-signature-svg {
-      width: 55px;
-      height: 92px;
-      display: block;
+    .cert-signature-img {
+      max-height: 92px;
+      max-width: 150px;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      display: none;
     }
 
     .cert-sign-line {
@@ -852,6 +855,22 @@
     .admin-unlock-btn:hover {
       border-color: var(--accent);
       color: var(--accent);
+    }
+
+    .btn-admin-load-sig {
+      display: none;
+      background: #1e293b;
+      color: #f59e0b;
+      font-weight: 700;
+      padding: 0.9rem 1.4rem;
+      border-radius: 8px;
+      border: 1px solid #f59e0b;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .btn-admin-load-sig:hover {
+      background: #334155;
     }
 
     .btn-admin-download {
@@ -1094,7 +1113,7 @@
     </div>
   </div>
 
-  <!-- PANTALLA 3: RESULTADOS Y CUOTA -->
+  <!-- PANTALLA 3: RESULTADOS Y CUOTA $50 -->
   <div class="modal-overlay" id="resultsModal">
     <div class="modal-card">
       <h2 class="modal-title">¡Evaluación Concluida!</h2>
@@ -1118,7 +1137,7 @@
       <div class="payment-box">
         <span class="payment-badge">CUOTA DE RECUPERACIÓN</span>
         <div class="payment-title">Constancia Oficial con Valor Curricular</div>
-        <div class="payment-amount">$20.00 MXN</div>
+        <div class="payment-amount">$50.00 MXN</div>
         
         <div class="payment-details">
           <div><strong>Institución:</strong> Spin by OXXO</div>
@@ -1144,7 +1163,6 @@
         <div class="cert-content">
           <div class="cert-header">
             <div class="cert-logo-container">
-              <!-- Logo Oficial en Constancia -->
               <svg class="logo-vector" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="cpxLogoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1199,24 +1217,10 @@
             </div>
           </div>
 
-          <!-- Firma Oficial Exacta Vectorizada de Alta Fidelidad -->
           <div class="cert-footer">
             <div class="cert-sign-col">
               <div class="cert-signature-box">
-                <svg class="cert-signature-svg" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Tallo superior vertical continuo con inicio redondeado -->
-                  <path d="M53.5 24 L53.5 86" stroke="#000000" stroke-width="4.8" stroke-linecap="round"/>
-                  
-                  <!-- Bucle inferior alargado que desciende y regresa subiendo por la izquierda -->
-                  <path d="M53.5 80 L53.5 116 C53.5 136 51 150 44 150 C37 150 36 135 39 116 C42.5 94 48 70 53.5 50" stroke="#000000" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-                  
-                  <!-- Lazo / bucle medio izquierdo -->
-                  <path d="M53 62 C41 68 37 77 39 86 C41 93 47 94 53 84" stroke="#000000" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-                  
-                  <!-- Rasgo derecho superior e inferior tipo r -->
-                  <path d="M53.5 68 C58.5 64 64 67 65 73 C65.5 78 60 82 54 84" stroke="#000000" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M58 78 C63 80 64.5 85 62 88 C59.5 90.5 56 88 53.5 83" stroke="#000000" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <img id="certSignatureImg" class="cert-signature-img" src="" alt="Firma Oficial">
               </div>
               <div class="cert-sign-line">Mtro. Rafael Garza Hinojosa</div>
               <div class="cert-sign-role">Director General CapacitiumX</div>
@@ -1234,11 +1238,13 @@
       <!-- Barra de Acciones -->
       <div class="cert-action-bar">
         <a id="btnCertWhatsApp" href="#" target="_blank" class="btn-wa-confirm">
-          📲 Enviar Comprobante de $20 a WhatsApp
+          📲 Enviar Comprobante de $50 a WhatsApp
         </a>
         <button class="btn-close-cert" onclick="closeCertModal()">Volver a la Prueba</button>
         
-        <button class="admin-unlock-btn" onclick="unlockAdminDownload()">🔒 Modo Admin</button>
+        <input type="file" id="adminSigFileInput" accept="image/*" style="display:none;" onchange="handleSignatureFileUpload(event)">
+        <button class="admin-unlock-btn" id="btnAdminUnlock" onclick="unlockAdminDownload()">🔒 Modo Admin</button>
+        <button class="btn-admin-load-sig" id="btnAdminLoadSig" onclick="document.getElementById('adminSigFileInput').click()">🖋️ Cargar Imagen de Mi Firma</button>
         <button class="btn-admin-download" id="btnAdminPrint" onclick="adminPrintCertificate()">🖨️ Descargar PDF Oficial (Admin)</button>
       </div>
     </div>
@@ -1248,6 +1254,7 @@
     const TARGET_EMAIL = "capacitiumx@gmail.com";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
+    const EXACT_GITHUB_URL = "https://capacitiumx.github.io/certificacion-en-agilidad-mecanografica-y-comunicacion-digital/";
 
     let currentUser = {
       name: "",
@@ -1296,6 +1303,7 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
+    // 1. REGISTRO INICIAL CON URL ABSOLUTA DE GITHUB PAGES
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1311,11 +1319,19 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
+      // Envío a FormSubmit con la URL exacta y completa de GitHub Pages
       fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
           _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
+          _captcha: "false",
+          _template: "table",
+          _url: EXACT_GITHUB_URL,
+          _origin: EXACT_GITHUB_URL,
           Nombre_Completo: currentUser.name,
           Edad: currentUser.age,
           Municipio_Ciudad: currentUser.city,
@@ -1324,6 +1340,7 @@
           Telefono_WhatsApp: currentUser.phone,
           Correo_Electronico: currentUser.email,
           Folio_Asignado: currentUser.folio,
+          Plataforma_Oficial: EXACT_GITHUB_URL,
           Fecha_Registro: new Date().toLocaleString("es-MX")
         })
       }).catch(err => console.error("Error al registrar:", err));
@@ -1571,6 +1588,7 @@
       }
     }
 
+    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS CON LA URL COMPLETA
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1593,9 +1611,16 @@
 
       fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
           _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
+          _captcha: "false",
+          _template: "table",
+          _url: EXACT_GITHUB_URL,
+          _origin: EXACT_GITHUB_URL,
           Nombre_Completo: currentUser.name,
           Edad: currentUser.age,
           Municipio_Ciudad: currentUser.city,
@@ -1609,7 +1634,8 @@
           Errores_Cometidos: finalErr,
           Tiempo_Empleado: finalDur,
           Modalidad: finalModeName,
-          Cuota_Constancia: "$20.00 MXN",
+          Cuota_Constancia: "$50.00 MXN",
+          Plataforma_Oficial: EXACT_GITHUB_URL,
           Fecha_Hora: new Date().toLocaleString("es-MX")
         })
       }).catch(err => console.error("Error al sincronizar resultados:", err));
@@ -1617,6 +1643,7 @@
       resultsModal.style.display = "flex";
     }
 
+    // 3. PREVISUALIZACIÓN DE CONSTANCIA
     function openCertificateView() {
       const isKey = currentMode === 'keyboard';
       const finalWpm = wpmTag.innerText;
@@ -1639,10 +1666,10 @@
         `📚 *Carrera:* ${currentUser.career} (${currentUser.period})%0A` +
         `📄 *Folio:* ${currentUser.folio}%0A` +
         `📊 *Resultado:* ${finalWpm} PPM | ${finalAcc} precisión%0A` +
-        `💰 *Cuota de Recuperación:* $20.00 MXN%0A` +
+        `💰 *Cuota de Recuperación:* $50.00 MXN%0A` +
         `💳 *Depósito realizado a:* Spin by OXXO (4217 4702 9453 6848)%0A` +
         `━━━━━━━━━━━━━━━━━━━━%0A` +
-        `Adjunto comprobante de pago de $20 pesos para validación y emisión oficial en PDF.`;
+        `Adjunto comprobante de pago de $50 pesos para validación y emisión oficial en PDF.`;
 
       document.getElementById('btnCertWhatsApp').href = `https://wa.me/${TARGET_WHATSAPP}?text=${encodeURIComponent(waMsg)}`;
 
@@ -1650,14 +1677,30 @@
       certificateModal.style.display = "flex";
     }
 
+    // 4. MODO ADMINISTRADOR (DESBLOQUEO Y CARGA DE FIRMA)
     function unlockAdminDownload() {
       const pass = prompt("Ingrese la clave de Administrador de CapacitiumX:");
       if (pass === ADMIN_PIN || pass === "Capamx_20_26") {
         document.getElementById('btnAdminPrint').style.display = "inline-block";
+        document.getElementById('btnAdminLoadSig').style.display = "inline-block";
+        document.getElementById('btnAdminUnlock').style.display = "none";
         document.getElementById('certWatermark').style.display = "none";
-        alert("Modo Administrador Activado: Se ha habilitado la descarga de la constancia oficial limpia en PDF.");
+        alert("Modo Administrador Activado:\n- Se retiró la marca de agua.\n- Usa el botón 'Cargar Imagen de Mi Firma' para insertar tu firma original.\n- Listo para descargar el PDF Oficial.");
       } else if (pass !== null) {
         alert("Clave de Administrador incorrecta.");
+      }
+    }
+
+    function handleSignatureFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const sigImg = document.getElementById('certSignatureImg');
+          sigImg.src = e.target.result;
+          sigImg.style.display = "block";
+        };
+        reader.readAsDataURL(file);
       }
     }
 
