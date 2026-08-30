@@ -506,7 +506,7 @@
       text-transform: uppercase;
     }
 
-    /* Cuota $50 */
+    /* Tarjeta de Recuperación $50 */
     .payment-box {
       background: #0f172a;
       border: 1px solid var(--gold-dark);
@@ -1249,10 +1249,9 @@
   </div>
 
   <script>
-    const TARGET_EMAIL = "rafaelgarza366@gmail.com";
+    const TARGET_EMAIL = "capacitiumx@gmail.com";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
-    const GITHUB_PAGE_URL = "https://capacitiumx.github.io/velocidad-de-escritura-y-habla/";
 
     let currentUser = {
       name: "",
@@ -1301,7 +1300,7 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL CON ENVÍO DIRECTO A TU CORREO
+    // 1. REGISTRO INICIAL CON AJAX DIRECTO A CAPACITIUMX@GMAIL.COM
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1317,7 +1316,7 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Envío AJAX nativo a FormSubmit
+      // Envío AJAX nativo a FormSubmit hacia capacitiumx@gmail.com
       fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
         headers: { 
@@ -1336,7 +1335,6 @@
           Telefono_WhatsApp: currentUser.phone,
           Correo_Electronico: currentUser.email,
           Folio_Asignado: currentUser.folio,
-          Plataforma_Oficial: GITHUB_PAGE_URL,
           Fecha_Registro: new Date().toLocaleString("es-MX")
         })
       })
@@ -1633,7 +1631,6 @@
           Tiempo_Empleado: finalDur,
           Modalidad: finalModeName,
           Cuota_Constancia: "$50.00 MXN",
-          Plataforma_Oficial: GITHUB_PAGE_URL,
           Fecha_Hora: new Date().toLocaleString("es-MX")
         })
       })
