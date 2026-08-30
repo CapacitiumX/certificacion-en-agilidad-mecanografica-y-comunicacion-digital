@@ -79,9 +79,12 @@
       margin-bottom: 0.8rem;
     }
 
-    .app-logo-svg {
-      width: 70px;
-      height: 70px;
+    .app-logo-img, .app-logo-svg {
+      width: 85px;
+      height: 85px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 136, 255, 0.3);
+      object-fit: contain;
     }
 
     .form-header h2 {
@@ -217,7 +220,6 @@
       border-color: var(--voice-accent);
     }
 
-    /* Barra de Métricas */
     .stats-bar {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -441,7 +443,7 @@
       100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
     }
 
-    /* PANTALLA 2: MODAL DE RESULTADOS Y PAGO DE $20 */
+    /* PANTALLA 2: RESULTADOS */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -505,7 +507,6 @@
       text-transform: uppercase;
     }
 
-    /* Tarjeta de Pago Cuota de Recuperación $20 */
     .payment-box {
       background: #0f172a;
       border: 1px solid var(--gold-dark);
@@ -581,7 +582,7 @@
       opacity: 0.9;
     }
 
-    /* PANTALLA 3: PREVISUALIZACIÓN DE CONSTANCIA */
+    /* PANTALLA 3: CONSTANCIA OFICIAL NÍTIDA */
     #certificateModal {
       display: none;
       position: fixed;
@@ -624,15 +625,15 @@
       z-index: 2;
     }
 
-    /* Marca de Agua de Previsualización para el Alumno */
+    /* Marca de Agua suave para no entorpecer la legibilidad */
     .watermark-overlay {
       position: absolute;
-      top: 50%;
+      top: 52%;
       left: 50%;
-      transform: translate(-50%, -50%) rotate(-30deg);
-      font-size: 3.2rem;
+      transform: translate(-50%, -50%) rotate(-25deg);
+      font-size: 3.4rem;
       font-weight: 900;
-      color: rgba(180, 83, 9, 0.12);
+      color: rgba(180, 83, 9, 0.07);
       text-transform: uppercase;
       letter-spacing: 6px;
       white-space: nowrap;
@@ -656,12 +657,10 @@
     }
 
     .cert-logo-container {
-      margin-bottom: 0.5rem;
-    }
-
-    .cert-logo-svg {
-      width: 75px;
-      height: 75px;
+      margin-bottom: 0.6rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .cert-subhead {
@@ -669,7 +668,7 @@
       text-transform: uppercase;
       letter-spacing: 2.5px;
       color: #64748b;
-      margin-top: 0.2rem;
+      margin-top: 0.3rem;
       font-weight: 700;
     }
 
@@ -747,20 +746,37 @@
     .cert-sign-col {
       text-align: center;
       width: 320px;
-      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    /* Trazo exacto de la firma proporcionada */
-    .cert-signature-svg {
-      width: 65px;
-      height: 75px;
-      margin-bottom: -5px;
+    /* Firma nítida y perfectamente contrastada */
+    .cert-signature-box {
+      height: 90px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      margin-bottom: 2px;
+    }
+
+    .cert-signature-img {
+      max-height: 85px;
+      width: auto;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      filter: contrast(1.3) brightness(0.9);
       display: block;
-      margin-left: auto;
-      margin-right: auto;
+    }
+
+    .cert-signature-svg {
+      width: 75px;
+      height: 85px;
+      display: none; /* Se activa si la imagen no carga */
     }
 
     .cert-sign-line {
+      width: 100%;
       border-top: 2px solid #0f172a;
       padding-top: 0.4rem;
       font-size: 0.92rem;
@@ -832,7 +848,6 @@
       cursor: pointer;
     }
 
-    /* Herramienta de Administrador */
     .admin-unlock-btn {
       background: transparent;
       border: 1px solid #334155;
@@ -861,7 +876,7 @@
       font-size: 0.95rem;
     }
 
-    /* CONFIGURACIÓN DE IMPRESIÓN OFICIAL (SOLO ACTIVA CUANDO EL ADMINISTRADOR DESCARGA) */
+    /* CONFIGURACIÓN DE IMPRESIÓN OFICIAL */
     @page {
       size: letter landscape;
       margin: 0;
@@ -936,22 +951,23 @@
     <div class="form-card">
       <div class="form-header">
         <div class="app-logo-badge">
-          <!-- Logo Oficial CapacitiumX Vectorial -->
-          <svg class="app-logo-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Logo Oficial CapacitiumX -->
+          <img src="logo capas.jpg" alt="CapacitiumX" class="app-logo-img" onerror="this.style.display='none'; document.getElementById('logoSvgFallback1').style.display='block';">
+          <svg id="logoSvgFallback1" class="app-logo-svg" style="display:none;" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#38bdf8"/>
-                <stop offset="100%" stop-color="#0284c7"/>
+              <linearGradient id="logoBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00d2ff"/>
+                <stop offset="100%" stop-color="#0056b3"/>
               </linearGradient>
             </defs>
-            <rect width="200" height="200" rx="24" fill="url(#grad1)"/>
-            <path d="M50 40 H150 V130 L100 165 L50 130 Z" stroke="#ffffff" stroke-width="6" fill="none"/>
-            <rect x="25" y="75" width="150" height="50" rx="4" fill="#0284c7" stroke="#ffffff" stroke-width="6"/>
-            <text x="100" y="110" font-family="'Segoe UI', Impact, sans-serif" font-weight="900" font-size="21" fill="#ffffff" text-anchor="middle" letter-spacing="1">CAPACITIUMX</text>
-            <rect x="85" y="48" width="30" height="20" rx="2" stroke="#ffffff" stroke-width="3" fill="none"/>
-            <line x1="100" y1="68" x2="100" y2="73" stroke="#ffffff" stroke-width="3"/>
-            <line x1="93" y1="73" x2="107" y2="73" stroke="#ffffff" stroke-width="3"/>
-            <text x="100" y="148" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#ffffff" text-anchor="middle">Cursos Online</text>
+            <rect width="200" height="200" rx="20" fill="url(#logoBgGrad)"/>
+            <path d="M48 40 H152 V132 L100 166 L48 132 Z" stroke="#ffffff" stroke-width="5" fill="none"/>
+            <rect x="24" y="74" width="152" height="52" fill="#0056b3" stroke="#ffffff" stroke-width="5"/>
+            <text x="100" y="110" font-family="'Segoe UI', Impact, sans-serif" font-weight="900" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="1">CAPACITIUMX</text>
+            <rect x="85" y="46" width="30" height="20" rx="3" stroke="#ffffff" stroke-width="3" fill="none"/>
+            <line x1="100" y1="66" x2="100" y2="72" stroke="#ffffff" stroke-width="3"/>
+            <line x1="92" y1="72" x2="108" y2="72" stroke="#ffffff" stroke-width="3"/>
+            <text x="100" y="147" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#ffffff" text-anchor="middle">Cursos Online</text>
           </svg>
         </div>
         <h2>Registro de Evaluación</h2>
@@ -1081,10 +1097,9 @@
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- PANTALLA 3: MODAL DE RESULTADOS Y PAGO DE $20 -->
+  <!-- PANTALLA 3: RESULTADOS Y CUOTA -->
   <div class="modal-overlay" id="resultsModal">
     <div class="modal-card">
       <h2 class="modal-title">¡Evaluación Concluida!</h2>
@@ -1105,7 +1120,6 @@
         </div>
       </div>
 
-      <!-- Cuota de Recuperación $20 MXN -->
       <div class="payment-box">
         <span class="payment-badge">CUOTA DE RECUPERACIÓN</span>
         <div class="payment-title">Constancia Oficial con Valor Curricular</div>
@@ -1124,11 +1138,10 @@
     </div>
   </div>
 
-  <!-- PANTALLA 4: PREVISUALIZACIÓN DE CONSTANCIA CON MARCA DE AGUA (SIN BOTÓN DE DESCARGA PARA ALUMNOS) -->
+  <!-- PANTALLA 4: PREVISUALIZACIÓN DE CONSTANCIA -->
   <div id="certificateModal">
     <div class="cert-wrapper">
       <div class="cert-card" id="printableCert">
-        <!-- Marca de agua para previsualización -->
         <div class="watermark-overlay" id="certWatermark">
           PREVISUALIZACIÓN<br>VALIDACIÓN PENDIENTE
         </div>
@@ -1136,21 +1149,23 @@
         <div class="cert-content">
           <div class="cert-header">
             <div class="cert-logo-container">
-              <!-- Logo Oficial CapacitiumX en Constancia -->
-              <svg class="cert-logo-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Logo Oficial en la Constancia con fondo nítido -->
+              <img src="logo capas.jpg" alt="Logo CapacitiumX" class="app-logo-img" onerror="this.style.display='none'; document.getElementById('logoSvgFallback2').style.display='block';">
+              <svg id="logoSvgFallback2" class="app-logo-svg" style="display:none;" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                  <linearGradient id="certGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#0284c7"/>
-                    <stop offset="100%" stop-color="#0369a1"/>
+                  <linearGradient id="certLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00d2ff"/>
+                    <stop offset="100%" stop-color="#0056b3"/>
                   </linearGradient>
                 </defs>
-                <path d="M50 40 H150 V130 L100 165 L50 130 Z" stroke="#0284c7" stroke-width="6" fill="none"/>
-                <rect x="25" y="75" width="150" height="50" rx="4" fill="#0284c7" stroke="#0369a1" stroke-width="4"/>
-                <text x="100" y="110" font-family="'Segoe UI', Impact, sans-serif" font-weight="900" font-size="21" fill="#ffffff" text-anchor="middle" letter-spacing="1">CAPACITIUMX</text>
-                <rect x="85" y="48" width="30" height="20" rx="2" stroke="#0284c7" stroke-width="3" fill="none"/>
-                <line x1="100" y1="68" x2="100" y2="73" stroke="#0284c7" stroke-width="3"/>
-                <line x1="93" y1="73" x2="107" y2="73" stroke="#0284c7" stroke-width="3"/>
-                <text x="100" y="148" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#0284c7" text-anchor="middle">Cursos Online</text>
+                <rect width="200" height="200" rx="18" fill="url(#certLogoGrad)"/>
+                <path d="M48 40 H152 V132 L100 166 L48 132 Z" stroke="#ffffff" stroke-width="5" fill="none"/>
+                <rect x="24" y="74" width="152" height="52" fill="#0056b3" stroke="#ffffff" stroke-width="5"/>
+                <text x="100" y="110" font-family="'Segoe UI', Impact, sans-serif" font-weight="900" font-size="20" fill="#ffffff" text-anchor="middle" letter-spacing="1">CAPACITIUMX</text>
+                <rect x="85" y="46" width="30" height="20" rx="3" stroke="#ffffff" stroke-width="3" fill="none"/>
+                <line x1="100" y1="66" x2="100" y2="72" stroke="#ffffff" stroke-width="3"/>
+                <line x1="92" y1="72" x2="108" y2="72" stroke="#ffffff" stroke-width="3"/>
+                <text x="100" y="147" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#ffffff" text-anchor="middle">Cursos Online</text>
               </svg>
             </div>
             <div class="cert-subhead">CENTRO DE CAPACITACIÓN & DESARROLLO ESTRATÉGICO</div>
@@ -1168,7 +1183,6 @@
             para el área de <strong id="certDisplayCareer">Carrera</strong> (<span id="certDisplayPeriod">Tetramestre</span>).
           </div>
 
-          <!-- Métricas limpias de resultados -->
           <div class="cert-metrics-box">
             <div>
               <div class="c-metric-val" id="certDisplayWpm">0 PPM</div>
@@ -1184,18 +1198,21 @@
             </div>
           </div>
 
-          <!-- Firma Oficial Institucional Exacta -->
+          <!-- Firma Oficial Exacta y Nítida -->
           <div class="cert-footer">
             <div class="cert-sign-col">
-              <!-- Trazo Vectorial Exacto de tu Firma -->
-              <svg class="cert-signature-svg" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Tallo vertical principal con bucle inferior cerrado -->
-                <path d="M53 23 C52 40, 52 75, 52 95 C52 108, 59 116, 56 117 C51 118, 46 102, 47 85 C48 68, 52 50, 54 23 Z" fill="#000000"/>
-                <!-- Bucle y lazo medio izquierdo -->
-                <path d="M52 52 C45 56, 42 63, 44 68 C46 72, 50 71, 52 64 Z" fill="#000000"/>
-                <!-- Trazo derecho de cruce / letra r -->
-                <path d="M58 54 C60 52, 64 54, 65 57 C65 60, 61 63, 58 64 C59 66, 61 68, 60 70 C58 70, 56 67, 56 63 Z" fill="#000000"/>
-              </svg>
+              <div class="cert-signature-box">
+                <img src="firma[4961].jpg" alt="Firma Mtro. Rafael Garza" class="cert-signature-img" onerror="this.style.display='none'; document.getElementById('sigSvgFallback').style.display='block';">
+                <!-- Fallback vectorial de alta precisión del trazo manuscrito -->
+                <svg id="sigSvgFallback" class="cert-signature-svg" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Tallo vertical superior e inferior con trazo grueso continuo -->
+                  <path d="M52 14 C54 14, 55 24, 55 42 C55 60, 52 88, 52 108 C52 120, 58 126, 56 127 C50 128, 44 112, 45 92 C46 72, 51 38, 52 14 Z" fill="#000000"/>
+                  <!-- Lazo y bucle izquierdo central -->
+                  <path d="M52 56 C41 62, 38 72, 42 78 C46 84, 51 80, 53 72 Z" fill="#000000"/>
+                  <!-- Detalle cruzado / trazo derecho r -->
+                  <path d="M57 58 C62 55, 67 58, 68 63 C68 67, 62 70, 58 72 C60 75, 63 78, 62 80 C59 80, 57 76, 56 70 Z" fill="#000000"/>
+                </svg>
+              </div>
               <div class="cert-sign-line">Mtro. Rafael Garza Hinojosa</div>
               <div class="cert-sign-role">Director General CapacitiumX</div>
               <div class="cert-sign-cedula">Cédula Profesional: 15565061</div>
@@ -1210,14 +1227,13 @@
         </div>
       </div>
 
-      <!-- Barra de Acciones del Alumno + Botón Administrador -->
+      <!-- Barra de Acciones -->
       <div class="cert-action-bar">
         <a id="btnCertWhatsApp" href="#" target="_blank" class="btn-wa-confirm">
           📲 Enviar Comprobante de $20 a WhatsApp
         </a>
         <button class="btn-close-cert" onclick="closeCertModal()">Volver a la Prueba</button>
         
-        <!-- Herramienta de Administrador protegida con contraseña -->
         <button class="admin-unlock-btn" onclick="unlockAdminDownload()">🔒 Modo Admin</button>
         <button class="btn-admin-download" id="btnAdminPrint" onclick="adminPrintCertificate()">🖨️ Descargar PDF Oficial (Admin)</button>
       </div>
@@ -1227,7 +1243,7 @@
   <script>
     const TARGET_EMAIL = "capacitiumx@gmail.com";
     const TARGET_WHATSAPP = "528131103846";
-    const ADMIN_PIN = "Capamx_ 20_26"; // Clave de Administrador actualizada
+    const ADMIN_PIN = "Capamx_ 20_26";
 
     let currentUser = {
       name: "",
@@ -1276,7 +1292,6 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL OBLIGATORIO Y ENVÍO AUTOMÁTICO AL CORREO
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1292,7 +1307,6 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Envío en segundo plano de todos los datos al correo capacitiumx@gmail.com
       fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1310,11 +1324,9 @@
         })
       }).catch(err => console.error("Error al registrar:", err));
 
-      // Actualizar saludo y concepto de pago
       document.getElementById('userGreetingTag').innerText = `Estudiante: ${currentUser.name} (${currentUser.career})`;
       document.getElementById('paymentConceptText').innerHTML = `<strong>Concepto:</strong> ${currentUser.name} Curricular`;
 
-      // Cerrar modal inicial
       document.getElementById('onboardingModal').style.display = 'none';
       focusInput();
     }
@@ -1555,7 +1567,6 @@
       }
     }
 
-    // 2. FINALIZAR PRUEBA Y ENVÍO AUTOMÁTICO DE MÉTRICAS A TU CORREO
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1576,7 +1587,6 @@
       document.getElementById('pillAcc').innerText = finalAcc;
       document.getElementById('pillMode').innerText = finalModeName;
 
-      // ENVÍO EN SEGUNDO PLANO DE LOS RESULTADOS COMPLETOS A CAPACITIUMX@GMAIL.COM
       fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1603,7 +1613,6 @@
       resultsModal.style.display = "flex";
     }
 
-    // 3. GENERAR Y DESPLEGAR LA PREVISUALIZACIÓN DE LA CONSTANCIA
     function openCertificateView() {
       const isKey = currentMode === 'keyboard';
       const finalWpm = wpmTag.innerText;
@@ -1611,7 +1620,6 @@
       const finalMode = isKey ? 'Teclado' : 'Dictado por Voz';
       const fechaHoy = new Date().toLocaleDateString("es-MX", { year: 'numeric', month: 'long', day: 'numeric' });
 
-      // Población de datos
       document.getElementById('certDisplayName').innerText = currentUser.name.toUpperCase();
       document.getElementById('certDisplayCareer').innerText = currentUser.career;
       document.getElementById('certDisplayPeriod').innerText = currentUser.period;
@@ -1621,7 +1629,6 @@
       document.getElementById('certDisplayFolio').innerText = currentUser.folio;
       document.getElementById('certDisplayDate').innerText = fechaHoy;
 
-      // Mensaje de WhatsApp para comprobante de $20 MXN
       const waMsg = `*PAGO DE CONSTANCIA CURRICULAR - CAPACITIUMX*%0A` +
         `━━━━━━━━━━━━━━━━━━━━%0A` +
         `🎓 *Alumno:* ${currentUser.name}%0A` +
@@ -1639,7 +1646,6 @@
       certificateModal.style.display = "flex";
     }
 
-    // Desbloqueo exclusivo para el Administrador con la clave Capamx_ 20_26
     function unlockAdminDownload() {
       const pass = prompt("Ingrese la clave de Administrador de CapacitiumX:");
       if (pass === ADMIN_PIN || pass === "Capamx_20_26") {
