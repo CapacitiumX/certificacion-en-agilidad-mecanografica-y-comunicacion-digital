@@ -40,7 +40,7 @@
       padding: 1.5rem;
     }
 
-    /* PANTALLA 1: REGISTRO DE ACCESO */
+    /* PANTALLA 1: REGISTRO OBLIGATORIO DE ACCESO */
     .onboarding-overlay {
       display: flex;
       position: fixed;
@@ -1249,10 +1249,9 @@
   </div>
 
   <script>
-    const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/capacitiumx@gmail.com";
+    const TARGET_EMAIL = "capacitiumx@gmail.com";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
-    const GITHUB_PAGE_URL = "https://capacitiumx.github.io/velocidad-de-escritura-y-habla/";
 
     let currentUser = {
       name: "",
@@ -1301,7 +1300,7 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL CON AJAX DIRECTO
+    // 1. REGISTRO INICIAL CON AJAX DIRECTO AL CORREO
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1317,8 +1316,8 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Envío AJAX con JSON a FormSubmit
-      fetch(FORMSUBMIT_ENDPOINT, {
+      // Envío AJAX nativo a FormSubmit
+      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
         headers: { 
           'Content-Type': 'application/json',
@@ -1336,10 +1335,12 @@
           Telefono_WhatsApp: currentUser.phone,
           Correo_Electronico: currentUser.email,
           Folio_Asignado: currentUser.folio,
-          Plataforma_Oficial: GITHUB_PAGE_URL,
           Fecha_Registro: new Date().toLocaleString("es-MX")
         })
-      }).catch(err => console.error("Error al registrar:", err));
+      })
+      .then(response => response.json())
+      .then(data => console.log("Registro enviado con éxito:", data))
+      .catch(err => console.error("Error al registrar:", err));
 
       document.getElementById('userGreetingTag').innerText = `Estudiante: ${currentUser.name} (${currentUser.career})`;
       document.getElementById('paymentConceptText').innerHTML = `<strong>Concepto:</strong> ${currentUser.name} Curricular`;
@@ -1605,7 +1606,8 @@
       document.getElementById('pillAcc').innerText = finalAcc;
       document.getElementById('pillMode').innerText = finalModeName;
 
-      fetch(FORMSUBMIT_ENDPOINT, {
+      // Envío de resultados al concluir
+      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
         headers: { 
           'Content-Type': 'application/json',
@@ -1629,10 +1631,12 @@
           Tiempo_Empleado: finalDur,
           Modalidad: finalModeName,
           Cuota_Constancia: "$50.00 MXN",
-          Plataforma_Oficial: GITHUB_PAGE_URL,
           Fecha_Hora: new Date().toLocaleString("es-MX")
         })
-      }).catch(err => console.error("Error al sincronizar resultados:", err));
+      })
+      .then(response => response.json())
+      .then(data => console.log("Resultados enviados con éxito:", data))
+      .catch(err => console.error("Error al sincronizar resultados:", err));
 
       resultsModal.style.display = "flex";
     }
