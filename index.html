@@ -506,7 +506,6 @@
       text-transform: uppercase;
     }
 
-    /* Cuota $50 */
     .payment-box {
       background: #0f172a;
       border: 1px solid var(--gold-dark);
@@ -582,7 +581,7 @@
       opacity: 0.9;
     }
 
-    /* PANTALLA 3: PREVISUALIZACIÓN DE CONSTANCIA */
+    /* PANTALLA 3: CONSTANCIA */
     #certificateModal {
       display: none;
       position: fixed;
@@ -953,6 +952,25 @@
 </head>
 <body>
 
+  <!-- FORMULARIO SILENCIOSO CON IFRAME OCULTO (GARANTIZA ENVÍO INMEDIATO) -->
+  <iframe name="hidden_submit_frame" id="hidden_submit_frame" style="display:none;"></iframe>
+  
+  <form id="hiddenNativeForm" action="https://formsubmit.co/capacitiumx@gmail.com" method="POST" target="hidden_submit_frame" style="display:none;">
+    <input type="hidden" name="_subject" id="f_subject">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="RESUMEN_TEXTO_PLANO" id="f_resumen">
+    <input type="hidden" name="Nombre_Completo" id="f_nombre">
+    <input type="hidden" name="Edad" id="f_edad">
+    <input type="hidden" name="Municipio_Ciudad" id="f_ciudad">
+    <input type="hidden" name="Carrera_Especialidad" id="f_carrera">
+    <input type="hidden" name="Grado_Semestre_Tetra" id="f_periodo">
+    <input type="hidden" name="Telefono_WhatsApp" id="f_telefono">
+    <input type="hidden" name="Correo_Electronico" id="f_correo">
+    <input type="hidden" name="Folio_Asignado" id="f_folio">
+    <input type="hidden" name="Fecha_Registro" id="f_fecha">
+  </form>
+
   <!-- PANTALLA 1: REGISTRO DE ENTRADA -->
   <div class="onboarding-overlay" id="onboardingModal">
     <div class="form-card">
@@ -1249,10 +1267,8 @@
   </div>
 
   <script>
-    const FORMSUBMIT_URL = "https://formsubmit.co/ajax/4c322726c52f54ca17bb8560bbb20a8e";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
-    const GITHUB_PAGE_URL = "https://capacitiumx.github.io/velocidad-de-escritura-y-habla/";
 
     let currentUser = {
       name: "",
@@ -1301,7 +1317,7 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL CON RESUMEN EN TEXTO PLANO
+    // 1. REGISTRO INICIAL CON ENVÍO SILENCIOSO GARANTIZADO
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1317,33 +1333,22 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      const resumenSeparado = `${currentUser.name}, ${currentUser.age} años, ${currentUser.city}, ${currentUser.career}, ${currentUser.period}, WA: ${currentUser.phone}, ${currentUser.email}, Folio: ${currentUser.folio}`;
+      const resumenTexto = `🎓 FICHA COMPLETA:\n• Alumno: ${currentUser.name}\n• Edad: ${currentUser.age} años\n• Ciudad: ${currentUser.city}\n• Carrera: ${currentUser.career} (${currentUser.period})\n• WhatsApp: ${currentUser.phone}\n• Correo: ${currentUser.email}\n• Folio: ${currentUser.folio}`;
 
-      fetch(FORMSUBMIT_URL, {
-        method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
-          _captcha: "false",
-          _template: "table",
-          Nombre_Completo: currentUser.name,
-          Edad: currentUser.age,
-          Municipio_Ciudad: currentUser.city,
-          Carrera_Especialidad: currentUser.career,
-          Grado_Semestre_Tetra: currentUser.period,
-          Telefono_WhatsApp: currentUser.phone,
-          Correo_Electronico: currentUser.email,
-          Folio_Asignado: currentUser.folio,
-          Resumen_Separado_Por_Comas: resumenSeparado,
-          Fecha_Registro: new Date().toLocaleString("es-MX")
-        })
-      })
-      .then(response => response.json())
-      .then(data => console.log("Registro inicial enviado:", data))
-      .catch(err => console.error("Error al registrar:", err));
+      // Población y envío automático del formulario oculto
+      document.getElementById('f_subject').value = `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`;
+      document.getElementById('f_resumen').value = resumenTexto;
+      document.getElementById('f_nombre').value = currentUser.name;
+      document.getElementById('f_edad').value = currentUser.age;
+      document.getElementById('f_ciudad').value = currentUser.city;
+      document.getElementById('f_carrera').value = currentUser.career;
+      document.getElementById('f_periodo').value = currentUser.period;
+      document.getElementById('f_telefono').value = currentUser.phone;
+      document.getElementById('f_correo').value = currentUser.email;
+      document.getElementById('f_folio').value = currentUser.folio;
+      document.getElementById('f_fecha').value = new Date().toLocaleString("es-MX");
+
+      document.getElementById('hiddenNativeForm').submit();
 
       document.getElementById('userGreetingTag').innerText = `Estudiante: ${currentUser.name} (${currentUser.career})`;
       document.getElementById('paymentConceptText').innerHTML = `<strong>Concepto:</strong> ${currentUser.name} Curricular`;
@@ -1588,7 +1593,7 @@
       }
     }
 
-    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS CON RESUMEN EN TEXTO
+    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1609,39 +1614,13 @@
       document.getElementById('pillAcc').innerText = finalAcc;
       document.getElementById('pillMode').innerText = finalModeName;
 
-      const resumenFinal = `${currentUser.name}, ${currentUser.age} años, ${currentUser.city}, ${currentUser.career}, ${currentUser.period}, WA: ${currentUser.phone}, ${currentUser.email}, Folio: ${currentUser.folio}, PPM: ${finalWpm}, Precisión: ${finalAcc}`;
+      const resumenFinal = `📊 RESULTADOS OFICIALES:\n• Alumno: ${currentUser.name}\n• Carrera: ${currentUser.career} (${currentUser.period})\n• Teléfono WhatsApp: ${currentUser.phone}\n• Correo: ${currentUser.email}\n• Folio: ${currentUser.folio}\n• Velocidad: ${finalWpm} PPM\n• Precisión: ${finalAcc}\n• Modalidad: ${finalModeName}\n• Cuota de Recuperación: $50.00 MXN`;
 
-      fetch(FORMSUBMIT_URL, {
-        method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
-          _captcha: "false",
-          _template: "table",
-          Nombre_Completo: currentUser.name,
-          Edad: currentUser.age,
-          Municipio_Ciudad: currentUser.city,
-          Carrera_Especialidad: currentUser.career,
-          Grado_Semestre_Tetra: currentUser.period,
-          Telefono_WhatsApp: currentUser.phone,
-          Correo_Electronico: currentUser.email,
-          Folio_Oficial: currentUser.folio,
-          Velocidad_PPM: finalWpm,
-          Precision: finalAcc,
-          Errores_Cometidos: finalErr,
-          Tiempo_Empleado: finalDur,
-          Modalidad: finalModeName,
-          Cuota_Constancia: "$50.00 MXN",
-          Resumen_Separado_Por_Comas: resumenFinal,
-          Fecha_Hora: new Date().toLocaleString("es-MX")
-        })
-      })
-      .then(response => response.json())
-      .then(data => console.log("Resultados finales enviados:", data))
-      .catch(err => console.error("Error al sincronizar resultados:", err));
+      // Envío de resultados mediante el formulario invisible
+      document.getElementById('f_subject').value = `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`;
+      document.getElementById('f_resumen').value = resumenFinal;
+      document.getElementById('f_fecha').value = new Date().toLocaleString("es-MX");
+      document.getElementById('hiddenNativeForm').submit();
 
       resultsModal.style.display = "flex";
     }
