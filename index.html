@@ -506,6 +506,7 @@
       text-transform: uppercase;
     }
 
+    /* Tarjeta de Recuperación $50 */
     .payment-box {
       background: #0f172a;
       border: 1px solid var(--gold-dark);
@@ -581,7 +582,7 @@
       opacity: 0.9;
     }
 
-    /* PANTALLA 3: CONSTANCIA OFICIAL */
+    /* PANTALLA 3: PREVISUALIZACIÓN DE CONSTANCIA */
     #certificateModal {
       display: none;
       position: fixed;
@@ -749,6 +750,7 @@
       align-items: center;
     }
 
+    /* Caja de firma: limpia y lista para renderizar el archivo del administrador */
     .cert-signature-box {
       height: 95px;
       width: 100%;
@@ -1252,6 +1254,7 @@
     const TARGET_EMAIL = "capacitiumx@gmail.com";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
+    const EXACT_GITHUB_URL = "https://capacitiumx.github.io/certificacion-en-agilidad-mecanografica-y-comunicacion-digital/";
 
     let currentUser = {
       name: "",
@@ -1300,7 +1303,7 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL CON URL COMPLETA Y PARÁMETROS FORMSUBMIT
+    // 1. REGISTRO INICIAL CON URL ABSOLUTA DE GITHUB PAGES
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1316,9 +1319,7 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      const FULL_PAGE_URL = window.location.href;
-
-      // Envío con FormSubmit ajax pasando la URL completa y configuraciones de formato
+      // Envío a FormSubmit con la URL exacta y completa de GitHub Pages
       fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
         method: "POST",
         headers: { 
@@ -1329,7 +1330,8 @@
           _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
           _captcha: "false",
           _template: "table",
-          _url: FULL_PAGE_URL,
+          _url: EXACT_GITHUB_URL,
+          _origin: EXACT_GITHUB_URL,
           Nombre_Completo: currentUser.name,
           Edad: currentUser.age,
           Municipio_Ciudad: currentUser.city,
@@ -1338,7 +1340,7 @@
           Telefono_WhatsApp: currentUser.phone,
           Correo_Electronico: currentUser.email,
           Folio_Asignado: currentUser.folio,
-          Url_De_Registro: FULL_PAGE_URL,
+          Plataforma_Oficial: EXACT_GITHUB_URL,
           Fecha_Registro: new Date().toLocaleString("es-MX")
         })
       }).catch(err => console.error("Error al registrar:", err));
@@ -1586,7 +1588,7 @@
       }
     }
 
-    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS CON URL COMPLETA
+    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS CON LA URL COMPLETA
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1602,7 +1604,6 @@
       const finalDur = `${timeSpent}s`;
       const finalModeName = isKey ? "Teclado" : "Voz";
       const finalErr = isKey ? kMistakes : vMistakes;
-      const FULL_PAGE_URL = window.location.href;
 
       document.getElementById('pillWpm').innerText = `${finalWpm} PPM`;
       document.getElementById('pillAcc').innerText = finalAcc;
@@ -1618,7 +1619,8 @@
           _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
           _captcha: "false",
           _template: "table",
-          _url: FULL_PAGE_URL,
+          _url: EXACT_GITHUB_URL,
+          _origin: EXACT_GITHUB_URL,
           Nombre_Completo: currentUser.name,
           Edad: currentUser.age,
           Municipio_Ciudad: currentUser.city,
@@ -1633,7 +1635,7 @@
           Tiempo_Empleado: finalDur,
           Modalidad: finalModeName,
           Cuota_Constancia: "$50.00 MXN",
-          Url_De_Registro: FULL_PAGE_URL,
+          Plataforma_Oficial: EXACT_GITHUB_URL,
           Fecha_Hora: new Date().toLocaleString("es-MX")
         })
       }).catch(err => console.error("Error al sincronizar resultados:", err));
