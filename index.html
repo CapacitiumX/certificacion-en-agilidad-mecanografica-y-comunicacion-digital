@@ -40,6 +40,7 @@
       padding: 1.5rem;
     }
 
+    /* PANTALLA 1: REGISTRO OBLIGATORIO DE ACCESO */
     .onboarding-overlay {
       display: flex;
       position: fixed;
@@ -149,6 +150,7 @@
       opacity: 0.9;
     }
 
+    /* APLICACIÓN PRINCIPAL DE EVALUACIÓN */
     .container {
       width: 100%;
       max-width: 920px;
@@ -440,6 +442,7 @@
       100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
     }
 
+    /* PANTALLA 2: RESULTADOS */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -503,6 +506,7 @@
       text-transform: uppercase;
     }
 
+    /* Tarjeta de Recuperación $50 */
     .payment-box {
       background: #0f172a;
       border: 1px solid var(--gold-dark);
@@ -578,6 +582,7 @@
       opacity: 0.9;
     }
 
+    /* PANTALLA 3: PREVISUALIZACIÓN DE CONSTANCIA */
     #certificateModal {
       display: none;
       position: fixed;
@@ -948,6 +953,7 @@
 </head>
 <body>
 
+  <!-- PANTALLA 1: REGISTRO DE ENTRADA -->
   <div class="onboarding-overlay" id="onboardingModal">
     <div class="form-card">
       <div class="form-header">
@@ -1033,6 +1039,7 @@
     </div>
   </div>
 
+  <!-- PANTALLA 2: SIMULADOR DE EVALUACIÓN -->
   <div class="container" id="mainTestContainer">
     <header>
       <div class="user-tag" id="userGreetingTag">Bienvenido a CapacitiumX</div>
@@ -1104,6 +1111,7 @@
     </div>
   </div>
 
+  <!-- PANTALLA 3: RESULTADOS Y CUOTA $50 -->
   <div class="modal-overlay" id="resultsModal">
     <div class="modal-card">
       <h2 class="modal-title">¡Evaluación Concluida!</h2>
@@ -1142,6 +1150,7 @@
     </div>
   </div>
 
+  <!-- PANTALLA 4: PREVISUALIZACIÓN DE CONSTANCIA -->
   <div id="certificateModal">
     <div class="cert-wrapper">
       <div class="cert-card" id="printableCert">
@@ -1224,6 +1233,7 @@
         </div>
       </div>
 
+      <!-- Barra de Acciones -->
       <div class="cert-action-bar">
         <a id="btnCertWhatsApp" href="#" target="_blank" class="btn-wa-confirm">
           📲 Enviar Comprobante de $50 a WhatsApp
@@ -1239,12 +1249,11 @@
   </div>
 
   <script>
-    // URL de tu Web App de Google Apps Script (Reemplaza con tu enlace del Paso 1 si deseas guardar en Sheets)
-    // O déjalo con el endpoint de respaldo configurado:
-    const GOOGLE_SCRIPT_URL = ""; 
-    const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/4c322726c52f54ca17bb8560bbb20a8e";
+    // Token verificado generado por FormSubmit para tu cuenta (capacitiumx@gmail.com)
+    const FORMSUBMIT_TOKEN = "4c322726c52f54ca17bb8560bbb20a8e";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
+    const EXACT_GITHUB_URL = "https://capacitiumx.github.io/certificacion-en-agilidad-mecanografica-y-comunicacion-digital/";
 
     let currentUser = {
       name: "",
@@ -1293,24 +1302,7 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // Función universal para enviar datos (a Google Apps Script o FormSubmit)
-    function sendPayload(payload) {
-      if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL.startsWith("http")) {
-        fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        }).catch(err => console.error("Error Google Script:", err));
-      } else {
-        fetch(FORMSUBMIT_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify(payload)
-        }).catch(err => console.error("Error FormSubmit:", err));
-      }
-    }
-
+    // 1. REGISTRO INICIAL CON EL TOKEN DIRECTO (SIN DEPENDER DE ACTIVACIÓN MANUAL)
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1326,21 +1318,29 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      sendPayload({
-        _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
-        _captcha: "false",
-        _template: "table",
-        tipo: "Acceso Inicial",
-        fecha: new Date().toLocaleString("es-MX"),
-        folio: currentUser.folio,
-        nombre: currentUser.name,
-        edad: currentUser.age,
-        municipio: currentUser.city,
-        carrera: currentUser.career,
-        periodo: currentUser.period,
-        whatsapp: currentUser.phone,
-        email: currentUser.email
-      });
+      // Envío directo al endpoint con tu token oficial verificado
+      fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_TOKEN}`, {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
+          _captcha: "false",
+          _template: "table",
+          Nombre_Completo: currentUser.name,
+          Edad: currentUser.age,
+          Municipio_Ciudad: currentUser.city,
+          Carrera_Especialidad: currentUser.career,
+          Grado_Semestre_Tetra: currentUser.period,
+          Telefono_WhatsApp: currentUser.phone,
+          Correo_Electronico: currentUser.email,
+          Folio_Asignado: currentUser.folio,
+          Plataforma_Oficial: EXACT_GITHUB_URL,
+          Fecha_Registro: new Date().toLocaleString("es-MX")
+        })
+      }).catch(err => console.error("Error al registrar:", err));
 
       document.getElementById('userGreetingTag').innerText = `Estudiante: ${currentUser.name} (${currentUser.career})`;
       document.getElementById('paymentConceptText').innerHTML = `<strong>Concepto:</strong> ${currentUser.name} Curricular`;
@@ -1585,6 +1585,7 @@
       }
     }
 
+    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS DIRECTO AL TOKEN
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1605,31 +1606,39 @@
       document.getElementById('pillAcc').innerText = finalAcc;
       document.getElementById('pillMode').innerText = finalModeName;
 
-      sendPayload({
-        _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
-        _captcha: "false",
-        _template: "table",
-        tipo: "Resultado Final",
-        fecha: new Date().toLocaleString("es-MX"),
-        folio: currentUser.folio,
-        nombre: currentUser.name,
-        edad: currentUser.age,
-        municipio: currentUser.city,
-        carrera: currentUser.career,
-        periodo: currentUser.period,
-        whatsapp: currentUser.phone,
-        email: currentUser.email,
-        ppm: finalWpm,
-        precision: finalAcc,
-        errores: finalErr,
-        duracion: finalDur,
-        modalidad: finalModeName,
-        cuota: "$50.00 MXN"
-      });
+      fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_TOKEN}`, {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
+          _captcha: "false",
+          _template: "table",
+          Nombre_Completo: currentUser.name,
+          Edad: currentUser.age,
+          Municipio_Ciudad: currentUser.city,
+          Carrera_Especialidad: currentUser.career,
+          Grado_Semestre_Tetra: currentUser.period,
+          Telefono_WhatsApp: currentUser.phone,
+          Correo_Electronico: currentUser.email,
+          Folio_Oficial: currentUser.folio,
+          Velocidad_PPM: finalWpm,
+          Precision: finalAcc,
+          Errores_Cometidos: finalErr,
+          Tiempo_Empleado: finalDur,
+          Modalidad: finalModeName,
+          Cuota_Constancia: "$50.00 MXN",
+          Plataforma_Oficial: EXACT_GITHUB_URL,
+          Fecha_Hora: new Date().toLocaleString("es-MX")
+        })
+      }).catch(err => console.error("Error al sincronizar resultados:", err));
 
       resultsModal.style.display = "flex";
     }
 
+    // 3. PREVISUALIZACIÓN DE CONSTANCIA
     function openCertificateView() {
       const isKey = currentMode === 'keyboard';
       const finalWpm = wpmTag.innerText;
@@ -1663,6 +1672,7 @@
       certificateModal.style.display = "flex";
     }
 
+    // 4. MODO ADMINISTRADOR (DESBLOQUEO Y CARGA DE FIRMA)
     function unlockAdminDownload() {
       const pass = prompt("Ingrese la clave de Administrador de CapacitiumX:");
       if (pass === ADMIN_PIN || pass === "Capamx_20_26") {
