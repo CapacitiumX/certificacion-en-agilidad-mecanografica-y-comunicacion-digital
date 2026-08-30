@@ -953,7 +953,6 @@
 </head>
 <body>
 
-  <!-- PANTALLA 1: REGISTRO DE ENTRADA -->
   <div class="onboarding-overlay" id="onboardingModal">
     <div class="form-card">
       <div class="form-header">
@@ -1039,7 +1038,6 @@
     </div>
   </div>
 
-  <!-- PANTALLA 2: SIMULADOR DE EVALUACIÓN -->
   <div class="container" id="mainTestContainer">
     <header>
       <div class="user-tag" id="userGreetingTag">Bienvenido a CapacitiumX</div>
@@ -1111,7 +1109,6 @@
     </div>
   </div>
 
-  <!-- PANTALLA 3: RESULTADOS Y CUOTA $50 -->
   <div class="modal-overlay" id="resultsModal">
     <div class="modal-card">
       <h2 class="modal-title">¡Evaluación Concluida!</h2>
@@ -1150,7 +1147,6 @@
     </div>
   </div>
 
-  <!-- PANTALLA 4: PREVISUALIZACIÓN DE CONSTANCIA -->
   <div id="certificateModal">
     <div class="cert-wrapper">
       <div class="cert-card" id="printableCert">
@@ -1233,7 +1229,6 @@
         </div>
       </div>
 
-      <!-- Barra de Acciones -->
       <div class="cert-action-bar">
         <a id="btnCertWhatsApp" href="#" target="_blank" class="btn-wa-confirm">
           📲 Enviar Comprobante de $50 a WhatsApp
@@ -1249,11 +1244,10 @@
   </div>
 
   <script>
-    // Token verificado generado por FormSubmit para tu cuenta (capacitiumx@gmail.com)
+    // Tu Token Oficial de FormSubmit vinculado directamente a capacitiumx@gmail.com
     const FORMSUBMIT_TOKEN = "4c322726c52f54ca17bb8560bbb20a8e";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
-    const EXACT_GITHUB_URL = "https://capacitiumx.github.io/certificacion-en-agilidad-mecanografica-y-comunicacion-digital/";
 
     let currentUser = {
       name: "",
@@ -1302,7 +1296,7 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL CON EL TOKEN DIRECTO (SIN DEPENDER DE ACTIVACIÓN MANUAL)
+    // 1. REGISTRO INICIAL DIRECTO (LLEGA COMO TABLA LIMPIA A TU BANDEJA DE CORREO)
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1318,7 +1312,7 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Envío directo al endpoint con tu token oficial verificado
+      // Envío de todos los campos con etiquetas claras para tu correo
       fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_TOKEN}`, {
         method: "POST",
         headers: { 
@@ -1326,19 +1320,18 @@
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
+          _subject: `🎓 [NUEVO ALUMNO] ${currentUser.name} (Folio: ${currentUser.folio})`,
           _captcha: "false",
           _template: "table",
-          Nombre_Completo: currentUser.name,
-          Edad: currentUser.age,
-          Municipio_Ciudad: currentUser.city,
-          Carrera_Especialidad: currentUser.career,
-          Grado_Semestre_Tetra: currentUser.period,
-          Telefono_WhatsApp: currentUser.phone,
-          Correo_Electronico: currentUser.email,
-          Folio_Asignado: currentUser.folio,
-          Plataforma_Oficial: EXACT_GITHUB_URL,
-          Fecha_Registro: new Date().toLocaleString("es-MX")
+          "Nombre del Alumno": currentUser.name,
+          "Edad": currentUser.age + " años",
+          "Municipio / Ciudad": currentUser.city,
+          "Carrera o Especialidad": currentUser.career,
+          "Grado / Semestre / Tetra": currentUser.period,
+          "WhatsApp del Alumno": currentUser.phone,
+          "Correo del Alumno": currentUser.email,
+          "Folio Oficial Asignado": currentUser.folio,
+          "Fecha y Hora de Acceso": new Date().toLocaleString("es-MX")
         })
       }).catch(err => console.error("Error al registrar:", err));
 
@@ -1585,7 +1578,7 @@
       }
     }
 
-    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS DIRECTO AL TOKEN
+    // 2. ENVÍO DE RESULTADOS AL FINALIZAR LA PRUEBA DIRECTO A TU GMAIL
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1613,25 +1606,21 @@
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
+          _subject: `📊 [RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM`,
           _captcha: "false",
           _template: "table",
-          Nombre_Completo: currentUser.name,
-          Edad: currentUser.age,
-          Municipio_Ciudad: currentUser.city,
-          Carrera_Especialidad: currentUser.career,
-          Grado_Semestre_Tetra: currentUser.period,
-          Telefono_WhatsApp: currentUser.phone,
-          Correo_Electronico: currentUser.email,
-          Folio_Oficial: currentUser.folio,
-          Velocidad_PPM: finalWpm,
-          Precision: finalAcc,
-          Errores_Cometidos: finalErr,
-          Tiempo_Empleado: finalDur,
-          Modalidad: finalModeName,
-          Cuota_Constancia: "$50.00 MXN",
-          Plataforma_Oficial: EXACT_GITHUB_URL,
-          Fecha_Hora: new Date().toLocaleString("es-MX")
+          "Nombre del Alumno": currentUser.name,
+          "Folio Oficial": currentUser.folio,
+          "Carrera": currentUser.career + " (" + currentUser.period + ")",
+          "WhatsApp": currentUser.phone,
+          "Correo Electrónico": currentUser.email,
+          "Velocidad Obtenida": finalWpm + " PPM",
+          "Precisión": finalAcc,
+          "Errores Cometidos": finalErr,
+          "Tiempo Empleado": finalDur,
+          "Modalidad Evaluada": finalModeName,
+          "Cuota de Constancia": "$50.00 MXN",
+          "Fecha y Hora": new Date().toLocaleString("es-MX")
         })
       }).catch(err => console.error("Error al sincronizar resultados:", err));
 
