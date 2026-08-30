@@ -750,7 +750,6 @@
       align-items: center;
     }
 
-    /* Caja de firma: limpia y lista para renderizar el archivo del administrador */
     .cert-signature-box {
       height: 95px;
       width: 100%;
@@ -959,7 +958,6 @@
     <div class="form-card">
       <div class="form-header">
         <div class="app-logo-badge">
-          <!-- Logo Oficial CapacitiumX Vectorial Embebido -->
           <svg class="logo-vector" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="cpxLogoGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1251,7 +1249,8 @@
   </div>
 
   <script>
-    const TARGET_EMAIL = "capacitiumx@gmail.com";
+    // Token verificado generado por FormSubmit para tu cuenta (capacitiumx@gmail.com)
+    const FORMSUBMIT_TOKEN = "4c322726c52f54ca17bb8560bbb20a8e";
     const TARGET_WHATSAPP = "528131103846";
     const ADMIN_PIN = "Capamx_ 20_26";
     const EXACT_GITHUB_URL = "https://capacitiumx.github.io/certificacion-en-agilidad-mecanografica-y-comunicacion-digital/";
@@ -1303,7 +1302,7 @@
     const resultsModal = document.getElementById('resultsModal');
     const certificateModal = document.getElementById('certificateModal');
 
-    // 1. REGISTRO INICIAL CON URL ABSOLUTA DE GITHUB PAGES
+    // 1. REGISTRO INICIAL CON EL TOKEN DIRECTO (SIN DEPENDER DE ACTIVACIÓN MANUAL)
     function handleInitialRegistration(event) {
       event.preventDefault();
       const btn = document.getElementById('btnSubmitInitial');
@@ -1319,8 +1318,8 @@
       currentUser.email = document.getElementById('studentEmail').value.trim();
       currentUser.folio = 'CPX-' + Math.floor(100000 + Math.random() * 900000);
 
-      // Envío a FormSubmit con la URL exacta y completa de GitHub Pages
-      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
+      // Envío directo al endpoint con tu token oficial verificado
+      fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_TOKEN}`, {
         method: "POST",
         headers: { 
           'Content-Type': 'application/json',
@@ -1330,8 +1329,6 @@
           _subject: `[ACCESO INICIAL] Alumno: ${currentUser.name} (Folio: ${currentUser.folio})`,
           _captcha: "false",
           _template: "table",
-          _url: EXACT_GITHUB_URL,
-          _origin: EXACT_GITHUB_URL,
           Nombre_Completo: currentUser.name,
           Edad: currentUser.age,
           Municipio_Ciudad: currentUser.city,
@@ -1588,7 +1585,7 @@
       }
     }
 
-    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS CON LA URL COMPLETA
+    // 2. FINALIZACIÓN Y ENVÍO DE RESULTADOS DIRECTO AL TOKEN
     function finishTest() {
       clearInterval(timer);
       timer = null;
@@ -1609,7 +1606,7 @@
       document.getElementById('pillAcc').innerText = finalAcc;
       document.getElementById('pillMode').innerText = finalModeName;
 
-      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
+      fetch(`https://formsubmit.co/ajax/${FORMSUBMIT_TOKEN}`, {
         method: "POST",
         headers: { 
           'Content-Type': 'application/json',
@@ -1619,8 +1616,6 @@
           _subject: `[RESULTADO EVALUACIÓN] ${currentUser.name} - ${finalWpm} PPM (Folio: ${currentUser.folio})`,
           _captcha: "false",
           _template: "table",
-          _url: EXACT_GITHUB_URL,
-          _origin: EXACT_GITHUB_URL,
           Nombre_Completo: currentUser.name,
           Edad: currentUser.age,
           Municipio_Ciudad: currentUser.city,
