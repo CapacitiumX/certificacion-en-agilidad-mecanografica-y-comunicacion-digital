@@ -749,22 +749,20 @@
       align-items: center;
     }
 
-    /* Caja y renderizado completo de la firma */
+    /* Contenedor y trazo exacto de la firma */
     .cert-signature-box {
-      height: 110px;
+      height: 100px;
       width: 100%;
       display: flex;
       align-items: flex-end;
       justify-content: center;
       margin-bottom: 2px;
-      overflow: visible;
     }
 
     .cert-signature-svg {
-      width: 85px;
-      height: 110px;
+      width: 65px;
+      height: 98px;
       display: block;
-      overflow: visible;
     }
 
     .cert-sign-line {
@@ -1201,22 +1199,19 @@
             </div>
           </div>
 
-          <!-- Firma Oficial Exacta, Completa y Nítida -->
+          <!-- Firma Oficial Exacta con Trazos de Pluma Abiertos y Nítidos -->
           <div class="cert-footer">
             <div class="cert-sign-col">
               <div class="cert-signature-box">
-                <svg class="cert-signature-svg" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Tallo vertical principal con remate superior y descenso continuo -->
-                  <path d="M62 16 C64 16 66 24 66 42 C66 62 64 85 64 112 C64 138 63 158 58 168 C54 174 46 172 42 162 C37 150 39 130 46 108 C51 86 58 62 62 38 C63 28 63 20 62 16 Z" fill="#000000"/>
-                  
-                  <!-- Bucle inferior cerrado que asciende por la izquierda -->
-                  <path d="M42 162 C35 148 37 125 44 104 C47 94 51 84 55 78 C56 81 53 94 49 106 C45 124 44 144 48 155 C50 160 53 160 56 152 C59 144 61 127 61 110 L65 110 C65 136 63 158 58 168 C53 176 45 172 42 162 Z" fill="#000000"/>
-                  
-                  <!-- Nudo/bucle medio izquierdo característico -->
-                  <path d="M61 76 C53 80 46 90 47 102 C48 112 56 114 61 106 C64 101 63 88 61 76 Z M54 88 C57 92 57 100 55 103 C52 104 50 100 50 94 C50 90 52 87 54 88 Z" fill="#000000"/>
-                  
-                  <!-- Trazo derecho de cruce / rasgo tipo r -->
-                  <path d="M66 86 C71 82 77 84 78 90 C79 96 74 100 69 103 C71 107 75 111 73 115 C71 117 68 113 66 106 C65 100 65 92 66 86 Z" fill="#000000"/>
+                <svg class="cert-signature-svg" viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Tallo vertical principal y bucle inferior hueco -->
+                  <path d="M53 18 L53 105 C53 125 51 142 46 142 C41 142 39 128 41 110 C43 90 48 68 53 48" stroke="#000000" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <!-- Bucle medio izquierdo hueco -->
+                  <path d="M53 62 C43 66 38 74 39 82 C40 90 47 92 53 84" stroke="#000000" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <!-- Rasgo derecho con cruce tipo r -->
+                  <path d="M53 68 C57 65 62 67 63 72 C64 78 59 82 54 85" stroke="#000000" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M58 77 C62 79 63 83 61 86 C59 88 56 86 54 83" stroke="#000000" stroke-width="3.0" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="53" cy="74" r="2.2" fill="#000000"/>
                 </svg>
               </div>
               <div class="cert-sign-line">Mtro. Rafael Garza Hinojosa</div>
